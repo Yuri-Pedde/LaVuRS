@@ -930,7 +930,7 @@ if page=="Painel LaVuRS":
             border: 2px solid green;
             border-radius: 15px;
             padding: 15px;
-            max-width: 100%-40px;
+            max-width: 100%-100px;
     
         }
         </style>
