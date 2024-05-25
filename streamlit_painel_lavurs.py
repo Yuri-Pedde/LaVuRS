@@ -1146,7 +1146,7 @@ if page=="Painel LaVuRS":
                 )
                 
     st.markdown("""<style>
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-1gv3huu.eczjsme16 > div.st-emotion-cache-6qob1r.eczjsme8
         {
         background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
         }
