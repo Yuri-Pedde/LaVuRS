@@ -890,11 +890,7 @@ if page=="Painel LaVuRS":
             x=alt.X('Ano', scale=alt.Scale(nice=False)),
             y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),  # Adicionando rótulo ao eixo Y em negrito
             color=alt.value('#000000'))
-        
-    
-    
-    
-    
+            
         title_properties = alt.TitleParams(
             text='Série Histórica: Quantidade de Eventos por Ano',
             fontWeight='bold',
@@ -919,9 +915,7 @@ if page=="Painel LaVuRS":
         ).properties(height=300,width=1730)
         # Gráfico com título
         chart_with_title = layout_chart.properties(title=title_properties)
-    
-        
-    
+
         # Mostrando o gráfico no Streamlit com sombra no container
         #st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
         #st.markdown('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
@@ -930,7 +924,7 @@ if page=="Painel LaVuRS":
         st.markdown(
         """
         <style>
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(5) > div > div:nth-child(1) {
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(8) > div > div > div:nth-child(1) {
             box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
             border: 2px solid green;
             border-radius: 15px;
