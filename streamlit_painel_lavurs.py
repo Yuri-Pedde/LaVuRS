@@ -140,7 +140,7 @@ if page=="Painel LaVuRS":
                     border: 1px solid lightgreen; /* Borda verde */
                     border-radius: 8px;
                     padding: 0px;
-                    max-width: calc(100% - 25px);
+                    max-width: calc(100%);
                 }
                 </style>
                 """,
