@@ -747,7 +747,7 @@ if page=="Painel LaVuRS":
             plt.xticks(fontsize=12)
             plt.yticks(fontsize=12) 
     
-            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS EXTREMOS POR REGIÃO E TIPO DE EVENTO', fontsize=20, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
+            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS POR REGIÃO E TIPOLOGIA', fontsize=20, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
             ax.set_xlabel('')
             ax.set_ylabel('')
             plt.tight_layout()
