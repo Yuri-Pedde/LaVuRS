@@ -1131,25 +1131,4 @@ with container3:
             unsafe_allow_html=True
             )
 
-st.markdown("""<style>
-    #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3
-    {
-    background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-    }
-    </style>""", unsafe_allow_html=True)
-    
-st.markdown("""<style>
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(1) > div
-        {
-            background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div
-        {
-            background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-        }
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div > a > span
-        {
-            color: black;
-             
-        }
-        </style>""", unsafe_allow_html=True)
+
