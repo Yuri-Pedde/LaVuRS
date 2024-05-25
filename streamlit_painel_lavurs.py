@@ -37,7 +37,7 @@ with container1:
         
     with col3:    
         st.write('<div style="display: flex; justify-content: right;">', unsafe_allow_html=True)
-        st.image(r'LOGO_LAVURS-removebg-preview.png', width=300)
+        st.image(r'LOGO_LAVURS-removebg-preview.png', width=250)
         st.write('</div>', unsafe_allow_html=True)
     st.write('<hr style="border: 0; height: 4px; background-color: black; margin: 0 auto;">', unsafe_allow_html=True)
 st.markdown(
