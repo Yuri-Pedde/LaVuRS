@@ -523,8 +523,8 @@ if page=="Painel LaVuRS":
     
     container2 = st.container()
     with container2:
-        #st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
-        #st.write('</div>', unsafe_allow_html=True)
+        st.write('<div style="margin-top: 10px;">', unsafe_allow_html=True)
+        st.write('</div>', unsafe_allow_html=True)
         col4, col5 = st.columns([1.22, 1])
         with col4:
             df_municipios_lavurs_advindo_origem = df_filtrado.copy()
