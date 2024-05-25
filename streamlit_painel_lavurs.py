@@ -107,294 +107,292 @@ if page=="Painel LaVuRS":
     municipios_unicos_filtrofinal = pd.merge(municipios_unicos_strip_dupli_df2,df_lista_municipios_bacia, on='Municipio', how='inner')
     
     container_filtros = st.container()
-    with container_filtros:
-        st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
-        st.write('</div>', unsafe_allow_html=True)
-        coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.2,1,0.2,1,0.2,1,0.2,1])
-    
-        with coluna1:
+with container_filtros:
+    st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
+    st.write('</div>', unsafe_allow_html=True)
+    coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.2,1,0.2,1,0.2,1,0.2,1])
+
+    with coluna1:
+        
+        lista_decadas_todas_filtro = list(df_original['Década'].unique())
+        lista_decadas_todas_filtro.insert(0,'Todas as décadas')
+        decada = st.selectbox("SELECIONE A DÉCADA", lista_decadas_todas_filtro, index=0, format_func=lambda x: x)
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(1) > div > div > div:nth-child(1) {{                
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                padding: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            """
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(1) > div > div > div:nth-child(1) > div > div > div {
+                background-color: #e0ffe0; /* Verde bem clarinho */
+                border: 1px solid lightgreen; /* Borda verde */
+                border-radius: 8px;
+                padding: 0px;
+                max-width: calc(100% - 25px);
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(1) > div > div > div:nth-child(1) > div > label {{
+                text-align: center;
+                margin: 0 auto; /* Centraliza horizontalmente */
+                display: table;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        if decada != "Todas as décadas":
+            anos = sorted(df_original[df_original['Década'] == decada]['Ano'].unique())
+            #df_decada_filtrada_ou_nao = df_original[df_original['Década'] == decada]
+        else:
+            anos = sorted(df_original['Ano'].unique())
+            #df_decada_filtrada_ou_nao = df_original.copy()
+        anos.insert(0, "Todos os anos")       
+    with coluna2:
+               
+        ano = st.selectbox("SELECIONE O ANO", anos, index=0, format_func=lambda x: x)
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(3) > div > div > div:nth-child(1) {{
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                padding: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
             
-            lista_decadas_todas_filtro = list(df_original['Década'].unique())
-            lista_decadas_todas_filtro.insert(0,'Todas as décadas')
-            decada = st.selectbox("SELECIONE A DÉCADA", lista_decadas_todas_filtro, index=0, format_func=lambda x: x)
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(1) > div > div > div > div:nth-child(1) 
-                {{                
-                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                    border: 2px solid green;
-                    border-radius: 15px;
-                    padding: 10px;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                """
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(1) > div > div > div > div:nth-child(1) > div > div 
-                {
-                    background-color: #e0ffe0; /* Verde bem clarinho */
-                    border: 1px solid lightgreen; /* Borda verde */
-                    border-radius: 8px;
-                    padding: 0px;
-                    max-width: calc(100% - 25px);
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(1) > div > div > div:nth-child(1) > div > label {{
-                    text-align: center;
-                    margin: 0 auto; /* Centraliza horizontalmente */
-                    display: table;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            if decada != "Todas as décadas":
-                anos = sorted(df_original[df_original['Década'] == decada]['Ano'].unique())
-                #df_decada_filtrada_ou_nao = df_original[df_original['Década'] == decada]
-            else:
-                anos = sorted(df_original['Ano'].unique())
-                #df_decada_filtrada_ou_nao = df_original.copy()
-            anos.insert(0, "Todos os anos")       
-        with coluna2:
-                   
-            ano = st.selectbox("SELECIONE O ANO", anos, index=0, format_func=lambda x: x)
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(3) > div > div > div > div:nth-child(1) {{
-                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                    border: 2px solid green;
-                    border-radius: 15px;
-                    padding: 10px;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-                
-            )        
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(3) > div > div > div > div:nth-child(1) > div > div {{
-                    background-color: #e0ffe0; /* Verde bem clarinho */
-                    border: 1px solid lightgreen; /* Borda verde */
-                    border-radius: 8px;
-                    padding: 0px;
-                    max-width: calc(100% - 25px);
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(3) > div > div > div:nth-child(1) > div > label {{
-                    text-align: center;
-                    margin: 0 auto; /* Centraliza horizontalmente */
-                    display: table;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            df_original['Regiao_BHRS'] = df_original['Regiao_BHRS'].apply(lambda x: x.replace(" E ", "; ") if " E " in x else x)
-            #st.dataframe(df_original['Regiao_BHRS'])
-            df_regioes_lavurs_inicio = df_original.assign(Regiao_BHRS=df_original['Regiao_BHRS'].str.split('; ')).explode('Regiao_BHRS')
-            #st.write(len(df_regioes_lavurs_inicio))
-            df_regioes_lavurs_inicio_alto = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='ALTO SINOS']
-            df_regioes_lavurs_inicio_baixo = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='BAIXO SINOS']
-            df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto,df_regioes_lavurs_inicio_baixo])
-            if ano == "Todos os anos" and decada != "Todas as décadas":
-                regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Década'] == decada]['Regiao_BHRS'].unique())
-            elif ano != "Todos os anos" and decada != "Todas as décadas":
-                regioes = sorted(df_regioes_lavurs_inicio[(df_regioes_lavurs_inicio['Década'] == decada)&(df_regioes_lavurs_inicio['Ano'] == ano)]['Regiao_BHRS'].unique())
-            elif ano != "Todos os anos" and decada == "Todas as décadas":
-                regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Ano'] == ano]['Regiao_BHRS'].unique())
-            else:
-                regioes = sorted(df_regioes_lavurs_inicio['Regiao_BHRS'].unique())
-            regioes.insert(0, 'Todas as regiões')      
-    
-        with coluna3:
-    
-            regiao = st.selectbox("SELECIONE A REGIÃO DA BHRS", regioes, index=0, format_func=lambda x: x)
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(5) > div > div > div > div:nth-child(1) {{
-                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                    border: 2px solid green;
-                    border-radius: 15px;
-                    padding: 10px;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-                
-            )        
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(5) > div > div > div > div:nth-child(1) > div > div > div > div > div {{
-                    background-color: #e0ffe0; /* Verde bem clarinho */
-                    border: 1px solid lightgreen; /* Borda verde */
-                    border-radius: 8px;
-                    padding: 0px;
-                    max-width: calc(100% - 25px);
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) > div > label {{
-                    text-align: center;
-                    margin: 0 auto; /* Centraliza horizontalmente */
-                    display: table;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
+        )        
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(3) > div > div > div:nth-child(1) > div > div > div {{
+                background-color: #e0ffe0; /* Verde bem clarinho */
+                border: 1px solid lightgreen; /* Borda verde */
+                border-radius: 8px;
+                padding: 0px;
+                max-width: calc(100% - 25px);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(3) > div > div > div:nth-child(1) > div > label {{
+                text-align: center;
+                margin: 0 auto; /* Centraliza horizontalmente */
+                display: table;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        df_original['Regiao_BHRS'] = df_original['Regiao_BHRS'].apply(lambda x: x.replace(" E ", "; ") if " E " in x else x)
+        #st.dataframe(df_original['Regiao_BHRS'])
+        df_regioes_lavurs_inicio = df_original.assign(Regiao_BHRS=df_original['Regiao_BHRS'].str.split('; ')).explode('Regiao_BHRS')
+        #st.write(len(df_regioes_lavurs_inicio))
+        df_regioes_lavurs_inicio_alto = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='ALTO SINOS']
+        df_regioes_lavurs_inicio_baixo = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='BAIXO SINOS']
+        df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto,df_regioes_lavurs_inicio_baixo])
+        if ano == "Todos os anos" and decada != "Todas as décadas":
+            regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Década'] == decada]['Regiao_BHRS'].unique())
+        elif ano != "Todos os anos" and decada != "Todas as décadas":
+            regioes = sorted(df_regioes_lavurs_inicio[(df_regioes_lavurs_inicio['Década'] == decada)&(df_regioes_lavurs_inicio['Ano'] == ano)]['Regiao_BHRS'].unique())
+        elif ano != "Todos os anos" and decada == "Todas as décadas":
+            regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Ano'] == ano]['Regiao_BHRS'].unique())
+        else:
+            regioes = sorted(df_regioes_lavurs_inicio['Regiao_BHRS'].unique())
+        regioes.insert(0, 'Todas as regiões')      
+
+    with coluna3:
+
+        regiao = st.selectbox("SELECIONE A REGIÃO DA BHRS", regioes, index=0, format_func=lambda x: x)
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) {{
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                padding: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
             
-            df_municipios_lavurs_inicio = df_original.assign(Municipio=df_original['Municipio'].str.split('; ')).explode('Municipio')
-            df_regiao_muni_dict = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
-            df_regiao_muni_dict['Municipio'] = df_regiao_muni_dict['Municipio'].apply(lambda x: remover_acentos(x))
-            df_regiao_muni_dict['Municipio'] = df_regiao_muni_dict['Municipio'].apply(lambda x: x.strip().upper())
-            df_municipios_lavurs_inicio['Municipio'] = df_municipios_lavurs_inicio['Municipio'].apply(lambda x: remover_acentos(x))
-            df_municipios_lavurs_inicio['Municipio'] = df_municipios_lavurs_inicio['Municipio'].apply(lambda x: x.strip().upper())
-            # Verificação da correspondência
-            municipios_nao_encontrados = df_municipios_lavurs_inicio[~df_municipios_lavurs_inicio['Municipio'].isin(df_regiao_muni_dict['Municipio'])]
-            for mun in municipios_nao_encontrados['Municipio'].unique():
-                df_municipios_lavurs_inicio = df_municipios_lavurs_inicio[df_municipios_lavurs_inicio['Municipio'] != mun]
-            df_regiao_muni_dict = df_regiao_muni_dict.set_index('Municipio')
-            dicionario_regiao_muni = df_regiao_muni_dict.to_dict()['Regiao_BHRS']
-            df_municipios_lavurs_inicio['Regiao_BHRS'] = df_municipios_lavurs_inicio['Municipio'].map(dicionario_regiao_muni)
-            df_regioes_lavurs_inicio_mapeado = df_municipios_lavurs_inicio.dropna(how='any').reset_index(drop=True)
-            if decada != "Todas as décadas":
-                df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Década'] == decada]
-            if ano != "Todos os anos":
-                df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Ano'] == ano]
-            if regiao != "Todas as regiões":
-                df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Regiao_BHRS']==regiao]
-            municipios = sorted(df_regioes_lavurs_inicio_mapeado['Municipio'].str.split('; ').explode().unique())
-            municipios.insert(0, 'Todos os municípios')
-                
-        with coluna4:
-                   
-            municipio_filtro = st.selectbox("SELECIONE O MUNICÍPIO DA BHRS", municipios, index=0, format_func=lambda x: x)
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(7) > div > div > div > div:nth-child(1) {{
-                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                    border: 2px solid green;
-                    border-radius: 15px;
-                    padding: 10px;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-                
-            )        
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(7) > div > div > div > div:nth-child(1) > div > div {{
-                    background-color: #e0ffe0; /* Verde bem clarinho */
-                    border: 1px solid lightgreen; /* Borda verde */
-                    border-radius: 8px;
-                    padding: 0px;
-                    max-width: calc(100% - 25px);
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(7) > div > div > div:nth-child(1) > div > label {{
-                    text-align: center;
-                    margin: 0 auto; /* Centraliza horizontalmente */
-                    display: table;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
+        )        
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) > div > div > div {{
+                background-color: #e0ffe0; /* Verde bem clarinho */
+                border: 1px solid lightgreen; /* Borda verde */
+                border-radius: 8px;
+                padding: 0px;
+                max-width: calc(100% - 25px);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) > div > label {{
+                text-align: center;
+                margin: 0 auto; /* Centraliza horizontalmente */
+                display: table;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        df_municipios_lavurs_inicio = df_original.assign(Municipio=df_original['Municipio'].str.split('; ')).explode('Municipio')
+        df_regiao_muni_dict = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
+        df_regiao_muni_dict['Municipio'] = df_regiao_muni_dict['Municipio'].apply(lambda x: remover_acentos(x))
+        df_regiao_muni_dict['Municipio'] = df_regiao_muni_dict['Municipio'].apply(lambda x: x.strip().upper())
+        df_municipios_lavurs_inicio['Municipio'] = df_municipios_lavurs_inicio['Municipio'].apply(lambda x: remover_acentos(x))
+        df_municipios_lavurs_inicio['Municipio'] = df_municipios_lavurs_inicio['Municipio'].apply(lambda x: x.strip().upper())
+        # Verificação da correspondência
+        municipios_nao_encontrados = df_municipios_lavurs_inicio[~df_municipios_lavurs_inicio['Municipio'].isin(df_regiao_muni_dict['Municipio'])]
+        for mun in municipios_nao_encontrados['Municipio'].unique():
+            df_municipios_lavurs_inicio = df_municipios_lavurs_inicio[df_municipios_lavurs_inicio['Municipio'] != mun]
+        df_regiao_muni_dict = df_regiao_muni_dict.set_index('Municipio')
+        dicionario_regiao_muni = df_regiao_muni_dict.to_dict()['Regiao_BHRS']
+        df_municipios_lavurs_inicio['Regiao_BHRS'] = df_municipios_lavurs_inicio['Municipio'].map(dicionario_regiao_muni)
+        df_regioes_lavurs_inicio_mapeado = df_municipios_lavurs_inicio.dropna(how='any').reset_index(drop=True)
+        if decada != "Todas as décadas":
+            df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Década'] == decada]
+        if ano != "Todos os anos":
+            df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Ano'] == ano]
+        if regiao != "Todas as regiões":
+            df_regioes_lavurs_inicio_mapeado = df_regioes_lavurs_inicio_mapeado[df_regioes_lavurs_inicio_mapeado['Regiao_BHRS']==regiao]
+        municipios = sorted(df_regioes_lavurs_inicio_mapeado['Municipio'].str.split('; ').explode().unique())
+        municipios.insert(0, 'Todos os municípios')
             
-            df_eventos_lavurs = df_regioes_lavurs_inicio_mapeado.assign(Evento=df_regioes_lavurs_inicio_mapeado['Evento'].str.split('; ')).explode('Evento')
-            #df_eventos_lavurs_dropado = df_eventos_lavurs.drop_duplicates(['Data_Evento'])
-            if decada != "Todas as décadas":
-                df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Década'] == decada]
-            if ano != "Todos os anos":
-                df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Ano'] == ano]
-            if regiao != "Todas as regiões":
-                df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Regiao_BHRS']==regiao]
-            if municipio_filtro != "Todos os municípios":
-                df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Municipio']==municipio_filtro]
-            eventos = sorted(df_eventos_lavurs['Evento'].str.split('; ').explode().unique())
-            eventos.insert(0, 'Todos os tipos de evento')
-        with coluna5:
+    with coluna4:
+               
+        municipio_filtro = st.selectbox("SELECIONE O MUNICÍPIO DA BHRS", municipios, index=0, format_func=lambda x: x)
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(7) > div > div > div:nth-child(1) {{
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                padding: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
             
-            #lista_evento_todas_filtro = list(eventos_unicos)
-            #lista_evento_todas_filtro.insert(0,'Todos os tipos de evento')       
-            evento_tipo_filtro = st.selectbox("SELECIONE A TIPOLOGIA DO EVENTO", eventos, index=0, format_func=lambda x: x)
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(9) > div > div > div > div:nth-child(1) {{
-                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                    border: 2px solid green;
-                    border-radius: 15px;
-                    padding: 10px;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-                
-            )        
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(2) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(9) > div > div > div > div:nth-child(1) > div > div {{
-                    background-color: #e0ffe0; /* Verde bem clarinho */
-                    border: 1px solid lightgreen; /* Borda verde */
-                    border-radius: 8px;
-                    padding: 0px;
-                    max-width: calc(100% - 25px);
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                f"""
-                <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(9) > div > div > div:nth-child(1) > div > label {{
-                    text-align: center;
-                    margin: 0 auto; /* Centraliza horizontalmente */
-                    display: table;
-                }}
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-    
+        )        
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(7) > div > div > div:nth-child(1) > div > div > div {{
+                background-color: #e0ffe0; /* Verde bem clarinho */
+                border: 1px solid lightgreen; /* Borda verde */
+                border-radius: 8px;
+                padding: 0px;
+                max-width: calc(100% - 25px);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(7) > div > div > div:nth-child(1) > div > label {{
+                text-align: center;
+                margin: 0 auto; /* Centraliza horizontalmente */
+                display: table;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        df_eventos_lavurs = df_regioes_lavurs_inicio_mapeado.assign(Evento=df_regioes_lavurs_inicio_mapeado['Evento'].str.split('; ')).explode('Evento')
+        #df_eventos_lavurs_dropado = df_eventos_lavurs.drop_duplicates(['Data_Evento'])
+        if decada != "Todas as décadas":
+            df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Década'] == decada]
+        if ano != "Todos os anos":
+            df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Ano'] == ano]
+        if regiao != "Todas as regiões":
+            df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Regiao_BHRS']==regiao]
+        if municipio_filtro != "Todos os municípios":
+            df_eventos_lavurs = df_eventos_lavurs[df_eventos_lavurs['Municipio']==municipio_filtro]
+        eventos = sorted(df_eventos_lavurs['Evento'].str.split('; ').explode().unique())
+        eventos.insert(0, 'Todos os tipos de evento')
+    with coluna5:
+        
+        #lista_evento_todas_filtro = list(eventos_unicos)
+        #lista_evento_todas_filtro.insert(0,'Todos os tipos de evento')       
+        evento_tipo_filtro = st.selectbox("SELECIONE A TIPOLOGIA DO EVENTO", eventos, index=0, format_func=lambda x: x)
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(9) > div > div > div:nth-child(1) {{
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                padding: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+            
+        )        
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(9) > div > div > div:nth-child(1) > div > div > div {{
+                background-color: #e0ffe0; /* Verde bem clarinho */
+                border: 1px solid lightgreen; /* Borda verde */
+                border-radius: 8px;
+                padding: 0px;
+                max-width: calc(100% - 25px);
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"""
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(9) > div > div > div:nth-child(1) > div > label {{
+                text-align: center;
+                margin: 0 auto; /* Centraliza horizontalmente */
+                display: table;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
     df_filtrado = df_eventos_lavurs.copy()
     for coluna in df_filtrado.columns:
         df_filtrado[coluna] = df_filtrado[coluna].astype(str).str.strip()
