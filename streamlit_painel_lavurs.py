@@ -912,7 +912,7 @@ if page=="Painel LaVuRS":
             titleFontSize=18,
             titleColor='black',
             labelFontSize=12,
-        ).properties(height=300,width=1650)
+        ).properties(height=400,width=1700)
         # Gráfico com título
         chart_with_title = layout_chart.properties(title=title_properties)
 
