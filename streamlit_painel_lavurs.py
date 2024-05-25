@@ -186,7 +186,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                 f"""
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(3) > div > div > div > {{
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(3) > div > div > div > div:nth-child(1) > div > div > div {{
                     background-color: #e0ffe0; /* Verde bem clarinho */
                     border: 1px solid lightgreen; /* Borda verde */
                     border-radius: 8px;
