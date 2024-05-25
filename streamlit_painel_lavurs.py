@@ -52,6 +52,28 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+st.markdown("""<style>
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-1gv3huu.eczjsme16 > div.st-emotion-cache-6qob1r.eczjsme8
+        {
+        background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
+        }
+        </style>""", unsafe_allow_html=True)
+        
+st.markdown("""<style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(1) > div
+            {
+                background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div
+            {
+                background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
+            }
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div > a > span
+            {
+                color: black;
+                 
+            }
+            </style>""", unsafe_allow_html=True)
 st.sidebar.title("Navegação")
 # CSS para estilizar os itens da sidebar
 page = st.sidebar.radio("Vá para a página:", ["Painel LaVuRS", "Sobre o Painel"])
@@ -1153,29 +1175,6 @@ if page=="Painel LaVuRS":
                 """,
                 unsafe_allow_html=True
                 )
-                
-    st.markdown("""<style>
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-1gv3huu.eczjsme16 > div.st-emotion-cache-6qob1r.eczjsme8
-        {
-        background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-        }
-        </style>""", unsafe_allow_html=True)
-        
-    st.markdown("""<style>
-            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(1) > div
-            {
-                background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-            }
-            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div
-            {
-                background: linear-gradient(to bottom, #66b366 0%, #66b366 10%, #80cc80 20%, #99e599 40%, #b3e5c0 60%, white 100%);
-            }
-            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.st-emotion-cache-vk3wp9.eczjsme11 > div.st-emotion-cache-6qob1r.eczjsme3 > div.st-emotion-cache-79elbk.eczjsme10 > ul > li:nth-child(2) > div > a > span
-            {
-                color: black;
-                 
-            }
-            </style>""", unsafe_allow_html=True)
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
