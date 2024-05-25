@@ -439,7 +439,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                         """
                         <div style='border: 2px solid green; border-radius: 20px; padding: 10px; box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25); text-align: center; background-color: #c8e6c9;'>
-                            <h10 style='font-size: 16px;'>REPORTAGENS COLETADAS</h10>
+                            <h10 style='font-size: 13px;'>REPORTAGENS COLETADAS</h10>
                             <p style='font-size: 26px; margin: 0; font-weight: bold;'>{}</p>
                         </div>
                         """.format(total_reportagens),
@@ -449,7 +449,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                         """
                         <div style='border: 2px solid green; border-radius: 20px; padding: 10px; box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25); text-align: center; background-color: #c8e6c9;'>
-                            <h10 style='font-size: 16px;'>NÚMERO DE FONTES</h10>
+                            <h10 style='font-size: 13px;'>NÚMERO DE FONTES</h10>
                             <p style='font-size: 26px; margin: 0; font-weight: bold;'>{}</p>
                         </div>
                         """.format(total_fontes_jornalisticas),
@@ -460,7 +460,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                         """
                         <div style='border: 2px solid green; border-radius: 20px; padding: 10px; box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25); text-align: center; background-color: #c8e6c9;'>
-                            <h10 style='font-size: 16px;'>EVENTOS REGISTRADOS</h10>
+                            <h10 style='font-size: 13px;'>EVENTOS REGISTRADOS</h10>
                             <p style='font-size: 26px; margin: 0; font-weight: bold;'>{}</p>
                         </div>
                         """.format(total_de_eventos_registrados),
@@ -471,7 +471,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                         """
                         <div style='border: 2px solid green; border-radius: 20px; padding: 10px; box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25); text-align: center; background-color: #c8e6c9;'>
-                            <h10 style='font-size: 16px;'>TIPOS DE EVENTO REGISTRADOS</h10>
+                            <h10 style='font-size: 13px;'>TIPOS DE EVENTO REGISTRADOS</h10>
                             <p style='font-size: 26px; margin: 0; font-weight: bold;'>{}</p>
                         </div>
                         """.format(total_eventos_unicos_tipo),
@@ -482,7 +482,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                         """
                         <div style='border: 2px solid green; border-radius: 20px; padding: 10px; box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25); text-align: center; background-color: #c8e6c9;'>
-                            <h10 style='font-size: 16px;'>MUNICÍPIOS COM EVENTO</h10>
+                            <h10 style='font-size: 13px;'>MUNICÍPIOS COM EVENTO</h10>
                             <p style='font-size: 26px; margin: 0; font-weight: bold;'>{}</p>
                         </div>
                         """.format(municipios_total_atingidos),
