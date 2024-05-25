@@ -728,7 +728,7 @@ if page=="Painel LaVuRS":
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
     
             # Criar o mapa de calor
-            fig, ax = plt.subplots(figsize=(12, 11))
+            fig, ax = plt.subplots(figsize=(11, 12))
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
