@@ -560,7 +560,8 @@ with container2:
                 [0.5, 'rgba(100,220,0,0.7)'], # Verde claro (ou a cor que você preferir para um único evento)
                   [1, 'rgba(180,100,0,0.7)'],  # Verde escuro  
                 ]
-
+        token = 'pk.eyJ1IjoiYW5kcmUtamFyZW5rb3ciLCJhIjoiY2xkdzZ2eDdxMDRmMzN1bnV6MnlpNnNweSJ9.4_9fi6bcTxgy5mGaTmE4Pw'
+        px.set_mapbox_access_token(token)
         # Criando a paleta de cores personalizada
         map_fig = px.choropleth_mapbox(dados_mapa_final, geojson=dados_mapa_final.geometry,
                                        locations=dados_mapa_final.index, color='Nº de Eventos',
