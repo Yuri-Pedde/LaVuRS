@@ -525,7 +525,7 @@ if page=="Painel LaVuRS":
     with container2:
         st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
         st.write('</div>', unsafe_allow_html=True)
-        col4, col5 = st.columns([1.25, 1])
+        col4, col5 = st.columns([1.22, 1])
         with col4:
             df_municipios_lavurs_advindo_origem = df_filtrado.copy()
             df_municipios_lavurs_advindo_origem = df_municipios_lavurs_advindo_origem.drop_duplicates(['Data_Evento','Municipio'])
