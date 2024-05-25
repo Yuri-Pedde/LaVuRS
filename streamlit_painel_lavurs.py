@@ -728,7 +728,7 @@ if page=="Painel LaVuRS":
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
     
             # Criar o mapa de calor
-            fig, ax = plt.subplots(figsize=(11, 11))
+            fig, ax = plt.subplots(figsize=(11, 11.3))
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
@@ -747,7 +747,7 @@ if page=="Painel LaVuRS":
             plt.xticks(fontsize=12)
             plt.yticks(fontsize=12) 
     
-            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS POR REGIÃO E TIPOLOGIA', fontsize=20, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
+            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS POR REGIÃO E TIPOLOGIA', fontsize=16, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
             ax.set_xlabel('')
             ax.set_ylabel('')
             plt.tight_layout()
