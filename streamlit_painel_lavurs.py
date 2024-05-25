@@ -235,7 +235,8 @@ if page=="Painel LaVuRS":
             st.markdown(
                 f"""
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) {{
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(5) > div > div > div > div:nth-child(1) > div
+                {{                
                     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
                     border: 2px solid green;
                     border-radius: 15px;
@@ -244,18 +245,18 @@ if page=="Painel LaVuRS":
                 </style>
                 """,
                 unsafe_allow_html=True
-                
-            )        
+            )
             st.markdown(
-                f"""
+                """
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) > div > div > div {{
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(5) > div > div > div > div:nth-child(1) > div > div > div
+                {
                     background-color: #e0ffe0; /* Verde bem clarinho */
                     border: 1px solid lightgreen; /* Borda verde */
                     border-radius: 8px;
                     padding: 0px;
-                    max-width: calc(100% - 25px);
-                }}
+                    max-width: calc(100%);
+                }
                 </style>
                 """,
                 unsafe_allow_html=True
@@ -263,7 +264,8 @@ if page=="Painel LaVuRS":
             st.markdown(
                 f"""
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(5) > div > div > div:nth-child(1) > div > label {{
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(5) > div > div > div > div:nth-child(1) > div > label 
+                {{
                     text-align: center;
                     margin: 0 auto; /* Centraliza horizontalmente */
                     display: table;
