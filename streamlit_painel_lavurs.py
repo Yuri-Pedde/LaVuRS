@@ -732,7 +732,7 @@ if page=="Painel LaVuRS":
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
-            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=1, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08})
+            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=0.9, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08})
             
             plt.axhline(y=-0.5, color='black', linestyle='-', linewidth=1)
     
@@ -747,7 +747,7 @@ if page=="Painel LaVuRS":
             plt.xticks(fontsize=12)
             plt.yticks(fontsize=12) 
     
-            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS POR REGIÃO E TIPOLOGIA', fontsize=16, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
+            plt.title('TABELA HEATMAP: CONTAGEM DE EVENTOS POR REGIÃO E TIPOLOGIA', fontsize=22, pad=30,fontweight='bold', fontstyle='italic', fontname='Arial')
             ax.set_xlabel('')
             ax.set_ylabel('')
             plt.tight_layout()
