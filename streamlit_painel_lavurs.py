@@ -120,7 +120,7 @@ if page=="Painel LaVuRS":
             st.markdown(
                 f"""
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(2) > div > div.st-emotion-cache-ocqkz7.e1f1d6gn4 > div:nth-child(1) > div > div > div:nth-child(1) {{                
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(3) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div:nth-child(1) > div > div > div > div:nth-child(1) > div {{                
                     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
                     border: 2px solid green;
                     border-radius: 15px;
