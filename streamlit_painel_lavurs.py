@@ -130,8 +130,8 @@ if page=="Painel LaVuRS":
     
     container_filtros = st.container()
     with container_filtros:
-        st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
-        st.write('</div>', unsafe_allow_html=True)
+        #st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
+        #st.write('</div>', unsafe_allow_html=True)
         coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.2,1,0.2,1,0.2,1,0.2,1])
     
         with coluna1:
@@ -728,7 +728,7 @@ if page=="Painel LaVuRS":
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
     
             # Criar o mapa de calor
-            fig, ax = plt.subplots(figsize=(11, 11.3))
+            fig, ax = plt.subplots(figsize=(11, 11.5))
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
