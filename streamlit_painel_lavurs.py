@@ -1059,7 +1059,7 @@ if page=="Painel LaVuRS":
                 st.markdown(
                 """
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(8) > div > div > div:nth-child(3) > div.st-emotion-cache-1wce3lb.e1f1d6gn3 > div > div > div
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(8) > div > div > div:nth-child(3) > div.st-emotion-cache-1wce3lb.e1f1d6gn3
                 {                
                     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
                     border: 2px solid green;
@@ -1121,7 +1121,8 @@ if page=="Painel LaVuRS":
                 st.markdown(
                 """
                 <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(5) > div > div:nth-child(4) > div:nth-child(1) {                
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(8) > div > div > div:nth-child(4) > div:nth-child(1)
+                {                
                     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
                     border: 2px solid green;
                     border-radius: 15px;
