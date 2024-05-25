@@ -28,7 +28,7 @@ with container1:
         st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
         st.write('</div>', unsafe_allow_html=True)
         st.write('<div style="display: flex; justify-content: left;">', unsafe_allow_html=True)
-        st.image(r"Feevale_symbol_and_logo_(horizontal).svg.png", width=250)
+        st.image(r"Feevale_symbol_and_logo_(horizontal).svg.png", width=200)
         st.write('</div>', unsafe_allow_html=True)
     with col2:
         st.markdown(f'<h1 style="text-align: center;color:#000000;font-size:32px;margin-top:0px;margin-bottom:0px;">{"PAINEL DE DESASTRES DA BACIA HIDROGRÁFICA DO RIO DOS SINOS"}</h1>', unsafe_allow_html=True)    
