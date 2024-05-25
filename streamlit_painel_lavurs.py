@@ -40,7 +40,18 @@ with container1:
         st.image(r'LOGO_LAVURS-removebg-preview.png', width=300)
         st.write('</div>', unsafe_allow_html=True)
     st.write('<hr style="border: 0; height: 4px; background-color: black; margin: 0 auto;">', unsafe_allow_html=True)
-
+st.markdown(
+    """
+    <style>
+    /* Define a largura mínima da sidebar */
+    .css-1d391kg {
+        min-width: 150px;
+        max-width: 150px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.sidebar.title("Navegação")
 # CSS para estilizar os itens da sidebar
 page = st.sidebar.radio("Vá para", ["Painel LaVuRS", "Sobre o Painel"])
