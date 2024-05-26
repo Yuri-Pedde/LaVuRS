@@ -1376,6 +1376,7 @@ if page=="Painel LaVuRS":
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'Baixo Sinos')
                 ].empty else '-', axis=1)
+            st.dataframe(df_final_municipios_atingidos)
             # Mesclar o DataFrame de municípios mais atingidos com o DataFrame final de eventos e reportagens
             df_final_municipios_atingidos_wide = df_final_municipios_atingidos.pivot(index='Evento', columns='Regiao_BHRS', values='Municipio')
             df_final_municipios_atingidos_wide.columns = ['Municipio mais atingido Alto Sinos', 'Municipio mais atingido Medio Sinos', 'Municipio mais atingido Baixo Sinos']
