@@ -1271,21 +1271,25 @@ if page=="Painel LaVuRS":
             df_pizza2 = df_pizza.drop_duplicates(['Data_Evento','Regiao_BHRS'])
             df_pizza2 = df_pizza2[['Regiao_BHRS',"Quantidade_Reportagens"]].groupby(['Regiao_BHRS'])['Quantidade_Reportagens'].sum().reset_index()
             colors = ["#77dd77", "#ff6961", "#000000"]
-            fig_pizza, ax_pizza = plt.subplots()    
-            # Configurando o gráfico de rosca
-            wedges, texts, autotexts = ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], colors=colors, startangle=90, 
-                                                    counterclock=False, wedgeprops=dict(width=0.3), autopct='%1.1f%%')
-            for autotext, color in zip(autotexts, colors):
-                autotext.set_color('white')  # Definindo a cor do texto para branco
-                autotext.set_backgroundcolor(color)
-                autotext.set_alpha(0.85)  # Definindo a opacidade
-                autotext.set_fontweight('bold')
-            # Adicionando título
-            plt.title("PORCENTAGEM DE REPORTAGENS POR REGIÃO DA BHRS",fontstyle='italic', fontweight='bold')
-            
-            # Exibindo o gráfico no Streamlit
-            st.pyplot(fig_pizza)
-
+            def draw_pie_chart(width):
+                fig_pizza, ax_pizza = plt.subplots()    
+                # Configurando o gráfico de rosca
+                wedges, texts, autotexts = ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], colors=colors, startangle=90, 
+                                                        counterclock=False, wedgeprops=dict(width=0.3), autopct='%1.1f%%')
+                for autotext, color in zip(autotexts, colors):
+                    autotext.set_color('white')  # Definindo a cor do texto para branco
+                    autotext.set_backgroundcolor(color)
+                    autotext.set_alpha(0.85)  # Definindo a opacidade
+                    autotext.set_fontweight('bold')
+                # Adicionando título
+                plt.title("PORCENTAGEM DE REPORTAGENS POR REGIÃO DA BHRS",fontstyle='italic', fontweight='bold')
+                
+                # Exibindo o gráfico no Streamlit
+                st.pyplot(fig_pizza)
+            if st.sidebar.checkbox("Expandir barra lateral", value=False):
+                draw_pie_chart(10)
+            else:
+                draw_pie_chart(16.8)
             st.markdown(
                 """
                 <style>
