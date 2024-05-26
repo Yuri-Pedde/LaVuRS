@@ -1009,8 +1009,8 @@ if page=="Painel LaVuRS":
                 plt.ylabel('Número de Eventos', fontsize=16)
                 for i, p in enumerate(ax.patches):
                 # Obtendo a década correspondente ao índice da barra
-                    str(decada_x) = contagem_por_decada.loc[i, 'Década']
-                    if decada == decada_x:
+                    decada_x = contagem_por_decada.loc[i, 'Década']
+                    if str(decada) == decada_x:
                         p.set_color('red')  # Se for a década selecionada, cor da barra vermelha
                     else:
                         p.set_color('green')  # Se não for a década selecionada, cor da barra em cinza claro
