@@ -811,19 +811,14 @@ if page=="Painel LaVuRS":
     container3 = st.container()
     with container3:
         df_eventos_lavurs_dropado = municipios_unicos_filtrofinal.copy()
-        if regiao!='Todas as regiões' and municipio_filtro!="Todos os municípios" and evento_tipo_filtro!="Todos os tipos de evento":
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)&(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)&(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
-        elif regiao=='Todas as regiões' and municipio_filtro!="Todos os municípios" and evento_tipo_filtro!="Todos os tipos de evento":
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)&(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
-        elif regiao=='Todas as regiões' and municipio_filtro=="Todos os municípios" and evento_tipo_filtro!="Todos os tipos de evento":
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
-        elif regiao!='Todas as regiões' and municipio_filtro=="Todos os municípios" and evento_tipo_filtro=="Todos os tipos de evento":
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado[df_eventos_lavurs_dropado['Regiao_BHRS']==regiao]
-        elif regiao!='Todas as regiões' and municipio_filtro!="Todos os municípios" and evento_tipo_filtro=="Todos os tipos de evento":
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)&(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)]
-        else:
-            df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado.copy()
-    
+        if regiao!='Todas as regiões':
+            df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
+        if municipio_filtro!="Todos os municípios":
+            df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)
+        if evento_tipo_filtro!="Todos os tipos de evento":
+            df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
+        
+        df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado.copy()
         contagem_por_ano = df_eventos_lavurs_dropado_filtrado.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
         contagem_por_ano = contagem_por_ano.rename(columns={'count':'Nº de Eventos'})
         media = contagem_por_ano['Nº de Eventos'].mean()
