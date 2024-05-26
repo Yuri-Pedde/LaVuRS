@@ -889,7 +889,7 @@ if page=="Painel LaVuRS":
                     color=alt.value('#000000')
                 )
         
-            layout_chart = chart_with_markers.configure_axisLeft(
+        layout_chart = chart_with_markers.configure_axisLeft(
                 titleFontWeight='bold',
                 titleFontSize=18,
                 titleColor='black',
@@ -900,7 +900,7 @@ if page=="Painel LaVuRS":
                 labelFontSize=12,
             ).properties(title=title_properties)
         
-            st.altair_chart(layout_chart, use_container_width=True)
+        st.altair_chart(layout_chart, use_container_width=True)
         
         # Ajuste dinâmico do layout baseado na largura da janela
         st.markdown(
