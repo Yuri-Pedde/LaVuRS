@@ -92,7 +92,8 @@ if page=="Painel LaVuRS":
     def load_df2(url):
         df_x = pd.read_excel(url, sheet_name="Página1")
         return df_x
-    
+    def remover_acentos(text):
+        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     df_original = load_df('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
     df_original['Fonte'] = df_original['Fonte'].replace('', 'Sem fonte')
     df_original['Ano'] = df_original['Ano'].astype(int).astype(float)
@@ -100,8 +101,6 @@ if page=="Painel LaVuRS":
     df_original['Década'] = df_original['Década'].astype(int).astype(str)
     df_original['Ano'] = df_original['Ano'].astype(int)
     df_original['Década'] = df_original['Década'].astype(int)
-    def remover_acentos(text):
-        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     df_dict = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
     df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: remover_acentos(x))
     df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: x.strip().upper())
@@ -117,9 +116,9 @@ if page=="Painel LaVuRS":
             else:
                 regioes.add("OUTRAS BACIAS")
         return '; '.join(regioes)
-    for coluna in df_original.columns:
-        df_original[coluna] = df_original[coluna].astype(str).str.strip()
-    
+
+    df_original["Municipio"] = df_original["Municipio"].apply(lambda x: remover_acentos(x))
+    df_original["Municipio"] = df_original["Municipio"].apply(lambda x: x.strip().upper())
     df_original["Regiao_BHRS"] = df_original["Municipio"].apply(get_regiao)
 
     eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
