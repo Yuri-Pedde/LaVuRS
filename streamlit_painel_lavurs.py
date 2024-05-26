@@ -982,8 +982,8 @@ if page=="Painel LaVuRS":
         col11,col12 = st.columns([1,1.2])    
         with container4:
             with col11:
-                df_decadas = pd.DataFrame()
-                df_decadas = df_eventos_lavurs_dropado_filtrado.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
+                df_decadas = df_original.copy()
+                df_decadas = df_decadas.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
                 df_decadas = df_decadas.rename(columns={'count':'Nº de Eventos'})
                 df_decadas['Ano'] = df_decadas['Ano'].astype(int).astype(float)
                 df_decadas['Década'] = (df_decadas['Ano'] // 10) * 10
