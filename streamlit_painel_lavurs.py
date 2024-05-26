@@ -904,19 +904,42 @@ if page=="Painel LaVuRS":
             orient='top',
             anchor='middle'
         )
-        # Configuração dos eixos
-        layout_chart = chart_with_markers.configure_axisLeft(
-            titleFontWeight='bold',
-            titleFontSize=18,
-            titleColor='black',
-        ).configure_axisX(
-            titleFontWeight='bold',
-            titleFontSize=18,
-            titleColor='black',
-            labelFontSize=12,
-        ).properties(height=400,width=1680)
-        # Gráfico com título
-        chart_with_title = layout_chart.properties(title=title_properties)
+
+        def toggle_sidebar():
+            st.session_state.sidebar_expanded = not st.session_state.sidebar_expanded
+        
+        # Botão para expandir/colapsar a barra lateral
+        toggle_button = st.sidebar.button("Toggle Sidebar", on_click=toggle_sidebar)
+        
+        # Verificar o estado da barra lateral e exibir a mensagem apropriada
+        if st.session_state.sidebar_expanded:
+            # Configuração dos eixos expanded
+            layout_chart = chart_with_markers.configure_axisLeft(
+                titleFontWeight='bold',
+                titleFontSize=18,
+                titleColor='black',
+            ).configure_axisX(
+                titleFontWeight='bold',
+                titleFontSize=18,
+                titleColor='black',
+                labelFontSize=12,
+            ).properties(height=400,width=1280)
+            # Gráfico com título
+            chart_with_title = layout_chart.properties(title=title_properties)
+        else:
+        # Configuração dos eixos collapsed
+            layout_chart = chart_with_markers.configure_axisLeft(
+                titleFontWeight='bold',
+                titleFontSize=18,
+                titleColor='black',
+            ).configure_axisX(
+                titleFontWeight='bold',
+                titleFontSize=18,
+                titleColor='black',
+                labelFontSize=12,
+            ).properties(height=400,width=1680)
+            # Gráfico com título
+            chart_with_title = layout_chart.properties(title=title_properties)
 
         # Mostrando o gráfico no Streamlit com sombra no container
         #st.markdown('<style>div.Widget.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
