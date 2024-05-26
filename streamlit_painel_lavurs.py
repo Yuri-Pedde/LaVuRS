@@ -1339,18 +1339,18 @@ if page=="Painel LaVuRS":
             df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
             
             contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Regiao_BHRS', 'Municipio']).size().reset_index(name='contagem')
-
+            
             # Encontrar o município com o maior número de ocorrências para cada região e evento
             municipio_mais_atingido = contagem.loc[contagem.groupby(['Evento', 'Regiao_BHRS'])['contagem'].idxmax()]
             
-            # Calcular as porcentagens de ocorrências
-            total_ocorrencias = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Regiao_BHRS']).size().reset_index(name='total_ocorrencias')
+            # Calcular o total de eventos por tipo de evento
+            total_eventos_por_tipo = df_filtrado_evento_tipologia_merged_final.groupby('Evento')['N° de Eventos'].sum().reset_index(name='total_eventos')
             
-            # Mesclar total de ocorrências com o DataFrame de municípios mais atingidos
-            municipio_mais_atingido = pd.merge(municipio_mais_atingido, total_ocorrencias, on=['Evento', 'Regiao_BHRS'], how='left')
+            # Mesclar total de eventos com o DataFrame de municípios mais atingidos
+            municipio_mais_atingido = pd.merge(municipio_mais_atingido, total_eventos_por_tipo, on='Evento', how='left')
             
             # Calcular a porcentagem de ocorrências para cada município mais atingido
-            municipio_mais_atingido['% de Ocorrência'] = (municipio_mais_atingido['contagem'] / municipio_mais_atingido['total_ocorrencias'])
+            municipio_mais_atingido['% de Ocorrência'] = (municipio_mais_atingido['contagem'] / municipio_mais_atingido['total_eventos']) * 100
             
             # Criar um DataFrame final para armazenar as informações
             df_final_municipios_atingidos = pd.DataFrame(index=eventos, columns=['Municipio mais atingido Alto Sinos', '% de Ocorrência Alto Sinos',
@@ -1382,7 +1382,7 @@ if page=="Painel LaVuRS":
             tabela_tipologia.set_index('Ranking', inplace=True)
             
             # Aplicar estilo à tabela
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
             
             # Exibir a tabela no Streamlit
             st.dataframe(tabela_tipologia_stilished, use_container_width=True,
