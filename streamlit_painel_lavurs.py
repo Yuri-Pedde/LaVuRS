@@ -161,6 +161,10 @@ if page=="Painel LaVuRS":
             padding: 20px;
             border-radius: 15px;
             border: 3px solid green;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
         }}
         </style>
         """, unsafe_allow_html=True)
