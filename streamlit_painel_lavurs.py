@@ -1270,10 +1270,11 @@ if page=="Painel LaVuRS":
             df_pizza['Quantidade_Reportagens'] = df_pizza['Quantidade_Reportagens'].astype(int)
             df_pizza2 = df_pizza.drop_duplicates(['Data_Evento','Regiao_BHRS'])
             df_pizza2 = df_pizza2[['Regiao_BHRS',"Quantidade_Reportagens"]].groupby(['Regiao_BHRS'])['Quantidade_Reportagens'].sum().reset_index()
-            
+            colors = ["#77dd77", "#ff6961", "#000000"]
             fig_pizza, ax_pizza = plt.subplots()    
             # Configurando o gráfico de rosca
-            ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], startangle=90, counterclock=False, wedgeprops=dict(width=0.3))
+            ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], colors=colors, startangle=90, counterclock=False, 
+                         wedgeprops=dict(width=0.3), autopct='%1.1f%%')
             
             # Adicionando título
             plt.title("NÚMERO DE REPORTAGENS POR REGIÃO DA BHRS")
