@@ -1279,6 +1279,7 @@ if page=="Painel LaVuRS":
                 autotext.set_color('white')  # Definindo a cor do texto para branco
                 autotext.set_backgroundcolor(color)
                 autotext.set_alpha(0.85)  # Definindo a opacidade
+                autotext.set_fontweight('bold')
             # Adicionando título
             plt.title("PORCENTAGEM DE REPORTAGENS POR REGIÃO DA BHRS",fontstyle='italic', fontweight='bold')
             
