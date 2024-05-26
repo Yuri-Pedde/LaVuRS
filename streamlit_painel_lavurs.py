@@ -720,8 +720,8 @@ if page=="Painel LaVuRS":
             heatmap_data_final = heatmap_data_final.sort_values(by='Evento')
     
             total_alto_sinos = int(heatmap_data_final['ALTO SINOS'].sum())
-            total_baixo_sinos = int(heatmap_data_final['BAIXO SINOS'].sum())
             total_medio_sinos = int(heatmap_data_final['MEDIO SINOS'].sum())
+            total_baixo_sinos = int(heatmap_data_final['BAIXO SINOS'].sum())
     
             heatmap_data_final_setado = heatmap_data_final.set_index('Evento')
             lista_total_regioes = []
