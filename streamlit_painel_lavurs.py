@@ -1113,7 +1113,7 @@ if page=="Painel LaVuRS":
                 df_filtrado_ano_mes_merged = df_filtrado_ano_mes_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
                 df_filtrado_ano_mes_merged_final = pd.merge(df_filtrado_ano_mes_merged,df_filtrado_dropado_anomes_muni,on=['Ano', 'Mes'] , how='outer')
                 df_filtrado_ano_mes_merged_final = df_filtrado_ano_mes_merged_final.rename(columns={'Municipio':'Quantidade_Municipios','Mes':'Mês'})
-                df_filtrado_ano_mes_merged_final[r'% de Municípios Atingidos'] = round((df_filtrado_ano_mes_merged_final['Quantidade_Municipios']*100)/(30),2)
+                df_filtrado_ano_mes_merged_final[r'% de Municípios Atingidos'] = round((df_filtrado_ano_mes_merged_final['Quantidade_Municipios']*100)/(31),2)
                 tabela_ano_mes = df_filtrado_ano_mes_merged_final[['Ano', 'Mês', 'N° de Eventos', 'N° de Reportagens', r'% de Municípios Atingidos']]
                 tabela_ano_mes = tabela_ano_mes.sort_values(by=['N° de Eventos','N° de Reportagens'], ascending=False)
                 # Reiniciando o índice do DataFrame
@@ -1265,6 +1265,21 @@ if page=="Painel LaVuRS":
                 }
                 </style>
                 """,unsafe_allow_html=True)
+        with col16:
+            df_pizza = df_filtrado.copy()
+            df_pizza['Quantidade_Reportagens'] = df_pizza['Quantidade_Reportagens'].astype(int)
+            df_pizza2 = df_pizza.drop_duplicates(['Data_Evento','Regiao_BHRS'])
+            df_pizza2 = df_pizza2[['Regiao_BHRS',"Quantidade_Reportagens"]].groupby(['Regiao_BHRS'])['Quantidade_Reportagens'].sum().reset_index()
+            
+            fig_pizza, ax_pizza = plt.subplots()    
+            # Configurando o gráfico de rosca
+            ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], startangle=90, counterclock=False, wedgeprops=dict(width=0.3))
+            
+            # Adicionando título
+            plt.title("NÚMERO DE REPORTAGENS POR REGIÃO DA BHRS")
+            
+            # Exibindo o gráfico no Streamlit
+            st.pyplot(fig_pizza)
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
