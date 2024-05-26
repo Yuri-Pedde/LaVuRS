@@ -1323,33 +1323,35 @@ if page=="Painel LaVuRS":
                 }
                 </style>
                 """,unsafe_allow_html=True)
+        col17,col18 = st.columns(1.5,1)
+        container7 = st.container()
+        with container7:
+            with col17:
+                df_filtrado_evento_tipologia = df_filtrado.copy()
+                df_filtrado_evento_tipologia['Quantidade_Reportagens'] = df_filtrado_evento_tipologia['Quantidade_Reportagens'].astype(int)
+                df_filtrado_evento_tipologia_Reportagens = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+                df_filtrado_evento_tipologia_Reportagens2 = df_filtrado_evento_tipologia_Reportagens[['Evento',"Quantidade_Reportagens"]].groupby(['Evento'])['Quantidade_Reportagens'].sum().reset_index()
+                df_filtrado_evento_tipologia_eventos = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+                df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
+                df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
+                df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
         
-        with col15:
-            df_filtrado_evento_tipologia = df_filtrado.copy()
-            df_filtrado_evento_tipologia['Quantidade_Reportagens'] = df_filtrado_evento_tipologia['Quantidade_Reportagens'].astype(int)
-            df_filtrado_evento_tipologia_Reportagens = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
-            df_filtrado_evento_tipologia_Reportagens2 = df_filtrado_evento_tipologia_Reportagens[['Evento',"Quantidade_Reportagens"]].groupby(['Evento'])['Quantidade_Reportagens'].sum().reset_index()
-            df_filtrado_evento_tipologia_eventos = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
-            df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
-            df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
-            df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
-    
-            tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
-            # Reiniciando o índice do DataFrame
-            tabela_tipologia = tabela_tipologia.reset_index(drop=True)
-            # Adicionando a coluna de ranking
-            tabela_tipologia['Ranking'] = tabela_tipologia.index + 1
-            # Definindo a coluna de ranking como o novo índice
-            tabela_tipologia.set_index('Ranking', inplace=True)
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
-            st.dataframe(tabela_tipologia_stilished, use_container_width =True,
-                         column_config={'N° Eventos': st.column_config.NumberColumn(
-                                        'N° Eventos',
-                                        format="%d"),
-                                        "N° Reportagens": st.column_config.NumberColumn(
-                                        "N° de Reportagens",
-                                        format="%d")}
-                                        )
+                tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
+                # Reiniciando o índice do DataFrame
+                tabela_tipologia = tabela_tipologia.reset_index(drop=True)
+                # Adicionando a coluna de ranking
+                tabela_tipologia['Ranking'] = tabela_tipologia.index + 1
+                # Definindo a coluna de ranking como o novo índice
+                tabela_tipologia.set_index('Ranking', inplace=True)
+                tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
+                st.dataframe(tabela_tipologia_stilished, use_container_width =True,
+                             column_config={'N° Eventos': st.column_config.NumberColumn(
+                                            'N° Eventos',
+                                            format="%d"),
+                                            "N° Reportagens": st.column_config.NumberColumn(
+                                            "N° de Reportagens",
+                                            format="%d")}
+                                            )
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
