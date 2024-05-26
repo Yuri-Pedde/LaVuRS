@@ -1284,6 +1284,21 @@ if page=="Painel LaVuRS":
             
             # Exibindo o gráfico no Streamlit
             st.pyplot(fig_pizza)
+
+            st.markdown(
+                """
+                <style>
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(9) > div > div > div:nth-child(5) > div.st-emotion-cache-1r6slb0.e1f1d6gn3
+                {                
+                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                    border: 2px solid green;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    padding: 15px;
+                    max-width: 100%;
+                }
+                </style>
+                """,unsafe_allow_html=True)
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
