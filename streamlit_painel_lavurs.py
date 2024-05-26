@@ -982,7 +982,7 @@ if page=="Painel LaVuRS":
         col11,col12 = st.columns([1,1.2])    
         with container4:
             with col11:
-                df_decadas = df_regioes_lavurs_inicio_mapeado.copy()
+                df_decadas = df_eventos_lavurs_dropado.copy()
                 df_decadas = df_decadas.drop_duplicates(['Data_Evento'])['Ano'].value_counts().sort_index().reset_index()    
                 df_decadas = df_decadas.rename(columns={'count':'Nº de Eventos'})
                 df_decadas['Ano'] = df_decadas['Ano'].astype(int).astype(float)
