@@ -1339,7 +1339,7 @@ if page=="Painel LaVuRS":
                 df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
                 contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Municipio']).size().reset_index(name='contagem')
                 # Encontrar o município com o maior número de ocorrências para cada tipo de evento
-                municipio_mais_atingido = contagem.loc[contagem.groupby('evento')['contagem'].idxmax()]
+                municipio_mais_atingido = contagem.loc[contagem.groupby('Evento')['contagem'].idxmax()]
                 # Renomear as colunas para maior clareza
                 municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
                 
