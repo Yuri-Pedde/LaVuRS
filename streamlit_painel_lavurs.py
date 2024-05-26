@@ -1203,7 +1203,7 @@ if page=="Painel LaVuRS":
         with container6:
             with col15:
                 df_meses = pd.DataFrame()
-                df_meses = df_eventos_lavurs_dropado_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
+                df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
                 df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
                 contagem_por_mes = df_decadas.groupby('Mes')['Nº de Eventos'].sum().reset_index()
     
@@ -1213,7 +1213,7 @@ if page=="Painel LaVuRS":
                 fig_meses = plt.figure(figsize=(12, 6.5))
     
                 # Plotando o gráfico de barras
-                ax =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
+                ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
                 sns.despine()
                 # Personalizando os valores do eixo X
                 plt.xticks(fontsize=12, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
@@ -1224,8 +1224,8 @@ if page=="Painel LaVuRS":
                 plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=20, fontstyle='italic', fontweight='bold', fontname='Arial')
                 plt.xlabel('Mês', fontsize=16)
                 plt.ylabel('Número de Eventos', fontsize=16)
-                for i, p in enumerate(ax.patches):    
-                    ax.annotate(format(p.get_height(), '.0f'), 
+                for i, p in enumerate(ax_meses.patches):    
+                    ax_meses.annotate(format(p.get_height(), '.0f'), 
                                 (p.get_x() + p.get_width() / 2., p.get_height()), 
                                 ha='center', va='center', 
                                 xytext=(0, 5), 
