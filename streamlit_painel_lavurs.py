@@ -1205,7 +1205,7 @@ if page=="Painel LaVuRS":
                 df_meses = pd.DataFrame()
                 df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
                 df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
-                contagem_por_mes = df_decadas.groupby('Mes')['Nº de Eventos'].sum().reset_index()
+                contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
     
                 sns.set_style("white")
                 
