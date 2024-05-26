@@ -1338,11 +1338,12 @@ if page=="Painel LaVuRS":
             df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
             df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
             contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Regiao_BHRS', 'Municipio']).size().reset_index(name='contagem')
+
             # Encontrar o município com o maior número de ocorrências para cada região e evento
             municipio_mais_atingido = contagem.loc[contagem.groupby(['Evento', 'Regiao_BHRS'])['contagem'].idxmax()]
             
             # Criar uma estrutura de DataFrame para garantir a presença de todos os tipos de evento e regiões
-            eventos = df_filtrado_evento_tipologia_municipio_mais_atingido['Evento'].unique()
+            eventos = df_filtrado_evento_tipologia_merged_final['Evento'].unique()
             regioes = ['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS']
             index = pd.MultiIndex.from_product([eventos, regioes], names=['Evento', 'Regiao_BHRS'])
             
@@ -1353,37 +1354,35 @@ if page=="Painel LaVuRS":
             df_final_municipios_atingidos['Municipio mais atingido Alto Sinos'] = df_final_municipios_atingidos.apply(
                 lambda row: municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Alto Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
                 ]['Municipio'].values[0] if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Alto Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
                 ].empty else '-', axis=1)
             
             df_final_municipios_atingidos['Municipio mais atingido Medio Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: municipio_mais_tingido[
+                lambda row: municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Medio Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
                 ]['Municipio'].values[0] if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Medio Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
                 ].empty else '-', axis=1)
             
             df_final_municipios_atingidos['Municipio mais atingido Baixo Sinos'] = df_final_municipios_atingidos.apply(
                 lambda row: municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Baixo Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
                 ]['Municipio'].values[0] if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'Baixo Sinos')
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
                 ].empty else '-', axis=1)
-            st.dataframe(df_final_municipios_atingidos)
-            # Mesclar o DataFrame de municípios mais atingidos com o DataFrame final de eventos e reportagens
-            df_final_municipios_atingidos_wide = df_final_municipios_atingidos.pivot(index='Evento', columns='Regiao_BHRS', values='Municipio')
-            df_final_municipios_atingidos_wide.columns = ['Municipio mais atingido Alto Sinos', 'Municipio mais atingido Medio Sinos', 'Municipio mais atingido Baixo Sinos']
-            df_final_municipios_atingidos_wide = df_final_municipios_atingidos_wide.reset_index()
-
             
-            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos_wide, on='Evento', how='left')
+            # Ajustar as colunas de df_final_municipios_atingidos para combinar com a estrutura de df_filtrado_evento_tipologia_merged_final
+            df_final_municipios_atingidos = df_final_municipios_atingidos[['Evento', 'Municipio mais atingido Alto Sinos', 'Municipio mais atingido Medio Sinos', 'Municipio mais atingido Baixo Sinos']].drop_duplicates()
+            
+            # Mesclar com o DataFrame de eventos e reportagens
+            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='left')
             
             # Ordenar a tabela final por número de eventos
             tabela_tipologia = tabela_tipologia.sort_values(by='N° de Eventos', ascending=False).reset_index(drop=True)
