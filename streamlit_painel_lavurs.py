@@ -164,7 +164,7 @@ if page=="Painel LaVuRS":
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
         }}
         </style>
         """, unsafe_allow_html=True)
