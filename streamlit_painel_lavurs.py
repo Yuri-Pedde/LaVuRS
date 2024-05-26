@@ -1198,71 +1198,73 @@ if page=="Painel LaVuRS":
                 """,
                 unsafe_allow_html=True
                 )
+        col15, col16 = st.columns([2,1])
         container6 = st.container()
         with container6:
-            df_meses = pd.DataFrame()
-            df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
-            df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
-            contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
-            meses_mapping = {
-                "JANEIRO": 1, "FEVEREIRO": 2, "MARÇO": 3, "ABRIL": 4,
-                "MAIO": 5, "JUNHO": 6, "JULHO": 7, "AGOSTO": 8,
-                "SETEMBRO": 9, "OUTUBRO": 10, "NOVEMBRO": 11, "DEZEMBRO": 12
-            }
-            
-            # Adicionar uma coluna auxiliar para ordenar
-            contagem_por_mes["Mes_num"] = contagem_por_mes["Mes"].map(meses_mapping)
-            
-            # Ordenar o DataFrame pelos valores numéricos dos meses
-            contagem_por_mes_sorted = contagem_por_mes.sort_values("Mes_num").drop(columns="Mes_num")
-            
-            # Resetar o índice (opcional)
-            contagem_por_mes_sorted = contagem_por_mes_sorted.reset_index(drop=True)
-            contagem_por_mes_sorted['Mes'] = contagem_por_mes_sorted['Mes'].replace('NÃO IDENTIFICADO','N/I')
-            sns.set_style("white")
+            with col15:
+                df_meses = pd.DataFrame()
+                df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
+                df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
+                contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
+                meses_mapping = {
+                    "JANEIRO": 1, "FEVEREIRO": 2, "MARÇO": 3, "ABRIL": 4,
+                    "MAIO": 5, "JUNHO": 6, "JULHO": 7, "AGOSTO": 8,
+                    "SETEMBRO": 9, "OUTUBRO": 10, "NOVEMBRO": 11, "DEZEMBRO": 12
+                }
                 
-            # Criando o gráfico de barras
-            fig_meses = plt.figure(figsize=(30, 6.8))
+                # Adicionar uma coluna auxiliar para ordenar
+                contagem_por_mes["Mes_num"] = contagem_por_mes["Mes"].map(meses_mapping)
+                
+                # Ordenar o DataFrame pelos valores numéricos dos meses
+                contagem_por_mes_sorted = contagem_por_mes.sort_values("Mes_num").drop(columns="Mes_num")
+                
+                # Resetar o índice (opcional)
+                contagem_por_mes_sorted = contagem_por_mes_sorted.reset_index(drop=True)
+                contagem_por_mes_sorted['Mes'] = contagem_por_mes_sorted['Mes'].replace('NÃO IDENTIFICADO','N/I')
+                sns.set_style("white")
+                    
+                # Criando o gráfico de barras
+                fig_meses = plt.figure(figsize=(30, 6.8))
+        
+                # Plotando o gráfico de barras
+                ax_meses =sns.barplot(data=contagem_por_mes_sorted, x="Mes", y="Nº de Eventos", color="#009000", width=0.5)
+                sns.despine()
+                # Personalizando os valores do eixo X
+                plt.xticks(fontsize=12, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
+                
+                plt.yticks([])
+        
+                # Adicionando título e rótulos dos eixos
+                plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=20, fontstyle='italic', fontweight='bold', fontname='Arial')
+                plt.xlabel('Mês', fontsize=16)
+                plt.ylabel('Número de Eventos', fontsize=16)
+                for i, p in enumerate(ax_meses.patches):    
+                    ax_meses.annotate(format(p.get_height(), '.0f'), 
+                                (p.get_x() + p.get_width() / 2., p.get_height()), 
+                                ha='center', va='center', 
+                                xytext=(0, 5), 
+                                textcoords='offset points',
+                                fontsize=14,
+                                fontweight='bold',
+                                color='black')  # Cor do texto é preto
+                                    
+        
+                st.pyplot(plt.gcf())
     
-            # Plotando o gráfico de barras
-            ax_meses =sns.barplot(data=contagem_por_mes_sorted, x="Mes", y="Nº de Eventos", color="#009000", width=0.5)
-            sns.despine()
-            # Personalizando os valores do eixo X
-            plt.xticks(fontsize=12, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
-            
-            plt.yticks([])
-    
-            # Adicionando título e rótulos dos eixos
-            plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=20, fontstyle='italic', fontweight='bold', fontname='Arial')
-            plt.xlabel('Mês', fontsize=16)
-            plt.ylabel('Número de Eventos', fontsize=16)
-            for i, p in enumerate(ax_meses.patches):    
-                ax_meses.annotate(format(p.get_height(), '.0f'), 
-                            (p.get_x() + p.get_width() / 2., p.get_height()), 
-                            ha='center', va='center', 
-                            xytext=(0, 5), 
-                            textcoords='offset points',
-                            fontsize=14,
-                            fontweight='bold',
-                            color='black')  # Cor do texto é preto
-                                
-    
-            st.pyplot(plt.gcf())
-
-            st.markdown(
-            """
-            <style>
-            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(9) > div > div > div.st-emotion-cache-0.e1f1d6gn0 > div > div
-            {                
-                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                border: 2px solid green;
-                border-radius: 15px;
-                overflow: hidden;
-                padding: 15px;
-                max-width: 100%;
-            }
-            </style>
-            """,unsafe_allow_html=True)
+                st.markdown(
+                """
+                <style>
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(9) > div > div > div.st-emotion-cache-0.e1f1d6gn0 > div > div
+                {                
+                    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                    border: 2px solid green;
+                    border-radius: 15px;
+                    overflow: hidden;
+                    padding: 15px;
+                    max-width: 100%;
+                }
+                </style>
+                """,unsafe_allow_html=True)
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
