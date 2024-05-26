@@ -850,10 +850,7 @@ if page=="Painel LaVuRS":
                         alt.value('#008000')   # Verde para outras décadas
                     ),
                     tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
-                ).properties(
-                    height=400,
-                    width=width)
-        
+                )        
                 chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
                     (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada) + 9))
                 ).encode(
@@ -883,9 +880,6 @@ if page=="Painel LaVuRS":
                     y='Nº de Eventos',
                     color=alt.value('#008000'),
                     tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
-                ).properties(
-                    height=400,
-                    width=width
                 )
         
                 chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').encode(
@@ -907,7 +901,7 @@ if page=="Painel LaVuRS":
                     titleFontSize=18,
                     titleColor='black',
                     labelFontSize=12,
-                ).properties(title=title_properties)
+                ).properties(title=title_properties, width=width, height=400)
             
                 st.altair_chart(layout_chart, use_container_width=True)
         
