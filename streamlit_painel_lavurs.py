@@ -1384,33 +1384,29 @@ if page=="Painel LaVuRS":
             
             df_final_municipios_atingidos = pd.merge(df_final_municipios_atingidos, total_ocorrencias, on=['Evento', 'Regiao_BHRS'], how='left')
             
+            # Inicializar colunas de porcentagem com valor zero
+            df_final_municipios_atingidos['% de Ocorrência Alto Sinos'] = 0
+            df_final_municipios_atingidos['% de Ocorrência Medio Sinos'] = 0
+            df_final_municipios_atingidos['% de Ocorrência Baixo Sinos'] = 0
+            
             # Calcular a porcentagem de ocorrências para cada região
-            df_final_municipios_atingidos['% de Ocorrência Alto Sinos'] = df_final_municipios_atingidos.apply(
+            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'ALTO SINOS', '% de Ocorrência Alto Sinos'] = df_final_municipios_atingidos.apply(
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ].empty else '-', axis=1)
+                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Alto Sinos'] != '-' else '-', axis=1)
             
-            df_final_municipios_atingidos['% de Ocorrência Medio Sinos'] = df_final_municipios_atingidos.apply(
+            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'MEDIO SINOS', '% de Ocorrência Medio Sinos'] = df_final_municipios_atingidos.apply(
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ].empty else '-', axis=1)
+                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Medio Sinos'] != '-' else '-', axis=1)
             
-            df_final_municipios_atingidos['% de Ocorrência Baixo Sinos'] = df_final_municipios_atingidos.apply(
+            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'BAIXO SINOS', '% de Ocorrência Baixo Sinos'] = df_final_municipios_atingidos.apply(
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ].empty else '-', axis=1)
+                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Baixo Sinos'] != '-' else '-', axis=1)
             
             # Ajustar as colunas de df_final_municipios_atingidos para combinar com a estrutura de df_filtrado_evento_tipologia_merged_final
             df_final_municipios_atingidos = df_final_municipios_atingidos[['Evento', 'Municipio mais atingido Alto Sinos', '% de Ocorrência Alto Sinos', 
@@ -1418,7 +1414,7 @@ if page=="Painel LaVuRS":
                                                                            'Municipio mais atingido Baixo Sinos', '% de Ocorrência Baixo Sinos']].drop_duplicates()
             
             # Mesclar com o DataFrame de eventos e reportagens
-            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='inner')
+            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='left')
             
             # Ordenar a tabela final por número de eventos
             tabela_tipologia = tabela_tipologia.sort_values(by='N° de Eventos', ascending=False).reset_index(drop=True)
@@ -1428,7 +1424,7 @@ if page=="Painel LaVuRS":
             tabela_tipologia.set_index('Ranking', inplace=True)
             
             # Aplicar estilo à tabela
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
             
             # Exibir a tabela no Streamlit
             st.dataframe(tabela_tipologia_stilished, use_container_width=True,
