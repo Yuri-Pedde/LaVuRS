@@ -154,7 +154,7 @@ if page=="Painel LaVuRS":
         
         st.markdown(f"""
         <style>
-        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(6) > div > div
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(6) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5
         {{
             background: linear-gradient(to bottom, #66b366 0%, #66b366 3%, #80cc80 8%, #99e599 14%, #b3e5c0 30%, white 100%);
             box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
