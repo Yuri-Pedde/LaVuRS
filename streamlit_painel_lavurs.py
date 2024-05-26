@@ -398,7 +398,6 @@ if page=="Painel LaVuRS":
             eventos = sorted(df_eventos_lavurs['Evento'].str.split('; ').explode().unique())
             eventos.insert(0, 'Todos os tipos de evento')
         with coluna5:
-            
             #lista_evento_todas_filtro = list(eventos_unicos)
             #lista_evento_todas_filtro.insert(0,'Todos os tipos de evento')       
             evento_tipo_filtro = st.selectbox("SELECIONE A TIPOLOGIA DO EVENTO", eventos, index=0, format_func=lambda x: x)
@@ -829,6 +828,7 @@ if page=="Painel LaVuRS":
         contagem_por_ano['Média de Eventos da Série Histórica'] = media
         contagem_por_ano['Nº de Eventos'] = round(contagem_por_ano['Nº de Eventos'].astype(float),0)
             
+        # Função para desenhar o gráfico de linhas com Altair
         def draw_chart(width):
             if decada != "Todas as décadas":
                 chart = alt.Chart(contagem_por_ano).mark_point().encode(
@@ -899,15 +899,54 @@ if page=="Painel LaVuRS":
                 titleColor='black',
                 labelFontSize=12,
             ).properties(title=title_properties)
-    
-        #st.altair_chart(layout_chart, use_container_width=True)
-    
+        
+            st.altair_chart(layout_chart, use_container_width=True)
+        
+        # Ajuste dinâmico do layout baseado na largura da janela
+        st.markdown(
+            """
+            <style>
+            @media (max-width: 1200px) {
+                .stApp {
+                    width: calc(100vw - 21rem);
+                }
+            }
+            @media (min-width: 1200px) {
+                .stApp {
+                    width: calc(100vw - 5rem);
+                }
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        # Definindo a largura do gráfico baseado na largura da janela
+        import streamlit.components.v1 as components
+        
+        components.html(
+            """
+            <script>
+            const mediaQuery = window.matchMedia('(max-width: 1200px)')
+            function handleResize(e) {
+                if (e.matches) {
+                    Streamlit.setComponentValue(800)
+                } else {
+                    Streamlit.setComponentValue(1600)
+                }
+            }
+            mediaQuery.addListener(handleResize)
+            handleResize(mediaQuery)
+            </script>
+            """,
+            height=0,
+        )
+        
         # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10)
+        chart_width = st.slider("Adjust chart width", min_value=800, max_value=1600, value=1600, step=10)
         
         # Desenhando o gráfico
         draw_chart(chart_width)
-            # Mostrando o gráfico no Streamlit
         st.markdown(
             """
             <style>
