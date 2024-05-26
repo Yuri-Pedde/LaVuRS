@@ -161,7 +161,6 @@ if page=="Painel LaVuRS":
             padding: 20px;
             border-radius: 15px;
             border: 3px solid green;
-            margin-top: 30px;
         }}
         </style>
         """, unsafe_allow_html=True)
@@ -180,6 +179,7 @@ if page=="Painel LaVuRS":
                     border: 2px solid green;
                     border-radius: 15px;
                     padding: 10px;
+                    margin-top: 30px;
                 }}
                 </style>
                 """,
@@ -232,6 +232,7 @@ if page=="Painel LaVuRS":
                     border: 2px solid green;
                     border-radius: 15px;
                     padding: 10px;
+                    margin-top: 30px;
                 }}
                 </style>
                 """,
@@ -296,6 +297,7 @@ if page=="Painel LaVuRS":
                     border: 2px solid green;
                     border-radius: 15px;
                     padding: 10px;
+                    margin-top: 30px;
                 }}
                 </style>
                 """,
@@ -365,6 +367,7 @@ if page=="Painel LaVuRS":
                     border: 2px solid green;
                     border-radius: 15px;
                     padding: 10px;
+                    margin-top: 30px;
                 }}
                 </style>
                 """,
@@ -424,6 +427,7 @@ if page=="Painel LaVuRS":
                     border: 2px solid green;
                     border-radius: 15px;
                     padding: 10px;
+                    margin-top: 30px;
                 }}
                 </style>
                 """,
