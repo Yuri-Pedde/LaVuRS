@@ -119,8 +119,6 @@ if page=="Painel LaVuRS":
 
     df_original["Municipio"] = df_original["Municipio"].apply(lambda x: remover_acentos(x))
     df_original["Municipio"] = df_original["Municipio"].apply(lambda x: x.strip().upper())
-    st.dataframe(df_original['Municipio'])
-    st.dataframe(df_dict['Municipio'])
     df_original["Regiao_BHRS"] = df_original["Municipio"].apply(get_regiao)
 
     eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
@@ -716,7 +714,7 @@ if page=="Painel LaVuRS":
             df_heatmap_filtrado = df_heatmap_filtrado.drop_duplicates(['Data_Evento','Regiao_BHRS','Evento'])
             # Criar dummies para Região
             df_heatmap_filtrado['Regiao_BHRS'] = df_heatmap_filtrado['Regiao_BHRS'].apply(lambda x: x.replace(" E ", "; ") if " E " in x else x)
-            dummies_regiao = df_heatmap_filtrado['Regiao_BHRS'].str.get_dummies('; ').reindex(columns=['ALTO SINOS','MEDIO SINOS', 'BAIXO SINOS'], fill_value=0)
+            dummies_regiao = df_heatmap_filtrado['Regiao_BHRS'].str.get_dummies('; ').reindex(columns=['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS'], fill_value=0)
             
             # Criar dummies para Evento
             #eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
