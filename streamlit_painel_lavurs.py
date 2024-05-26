@@ -1242,7 +1242,7 @@ if page=="Painel LaVuRS":
                             ha='center', va='center', 
                             xytext=(0, 5), 
                             textcoords='offset points',
-                            fontsize=12,
+                            fontsize=14,
                             fontweight='bold',
                             color='black')  # Cor do texto é preto
                                 
