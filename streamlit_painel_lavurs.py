@@ -109,7 +109,7 @@ if page=="Painel LaVuRS":
     def get_regiao(municipios):
         # Separar os municípios e obter as regiões correspondentes
         regioes = set()
-        for mun in municipios.split(';'):
+        for mun in municipios.split('; '):
             mun = mun.strip()
             if mun in municipio_to_regiao:
                 regioes.add(municipio_to_regiao[mun])
@@ -119,6 +119,8 @@ if page=="Painel LaVuRS":
 
     df_original["Municipio"] = df_original["Municipio"].apply(lambda x: remover_acentos(x))
     df_original["Municipio"] = df_original["Municipio"].apply(lambda x: x.strip().upper())
+    st.dataframe(df_original['Municipio'])
+    st.dataframe(df_dict['Municipio'])
     df_original["Regiao_BHRS"] = df_original["Municipio"].apply(get_regiao)
 
     eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
