@@ -1198,44 +1198,42 @@ if page=="Painel LaVuRS":
                 """,
                 unsafe_allow_html=True
                 )
-        col15, col16 = st.columns([1.5,1])
         container6 = st.container()
         with container6:
-            with col15:
-                df_meses = pd.DataFrame()
-                df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
-                df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
-                contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
+            df_meses = pd.DataFrame()
+            df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
+            df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
+            contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
     
-                sns.set_style("white")
+            sns.set_style("white")
                 
-                # Criando o gráfico de barras
-                fig_meses = plt.figure(figsize=(14, 6.5))
+            # Criando o gráfico de barras
+            fig_meses = plt.figure(figsize=(14, 6.5))
     
-                # Plotando o gráfico de barras
-                ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
-                sns.despine()
-                # Personalizando os valores do eixo X
-                plt.xticks(fontsize=8, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
+            # Plotando o gráfico de barras
+            ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
+            sns.despine()
+            # Personalizando os valores do eixo X
+            plt.xticks(fontsize=8, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
             
-                plt.yticks([])
+            plt.yticks([])
     
-                # Adicionando título e rótulos dos eixos
-                plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=18, fontstyle='italic', fontweight='bold', fontname='Arial')
-                plt.xlabel('Mês', fontsize=14)
-                plt.ylabel('Número de Eventos', fontsize=14)
-                for i, p in enumerate(ax_meses.patches):    
-                    ax_meses.annotate(format(p.get_height(), '.0f'), 
-                                (p.get_x() + p.get_width() / 2., p.get_height()), 
-                                ha='center', va='center', 
-                                xytext=(0, 5), 
-                                textcoords='offset points',
-                                fontsize=10,
-                                fontweight='bold',
-                                color='black')  # Cor do texto é preto
+            # Adicionando título e rótulos dos eixos
+            plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=18, fontstyle='italic', fontweight='bold', fontname='Arial')
+            plt.xlabel('Mês', fontsize=14)
+            plt.ylabel('Número de Eventos', fontsize=14)
+            for i, p in enumerate(ax_meses.patches):    
+                ax_meses.annotate(format(p.get_height(), '.0f'), 
+                            (p.get_x() + p.get_width() / 2., p.get_height()), 
+                            ha='center', va='center', 
+                            xytext=(0, 5), 
+                            textcoords='offset points',
+                            fontsize=10,
+                            fontweight='bold',
+                            color='black')  # Cor do texto é preto
                                 
     
-                st.pyplot(plt.gcf())
+            st.pyplot(plt.gcf())
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
