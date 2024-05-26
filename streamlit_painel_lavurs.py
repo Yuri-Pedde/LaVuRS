@@ -1380,6 +1380,7 @@ if page=="Painel LaVuRS":
             df_final_municipios_atingidos_wide = df_final_municipios_atingidos.pivot(index='Evento', columns='Regiao_BHRS', values='Municipio')
             df_final_municipios_atingidos_wide.columns = ['Municipio mais atingido Alto Sinos', 'Municipio mais atingido Medio Sinos', 'Municipio mais atingido Baixo Sinos']
             df_final_municipios_atingidos_wide = df_final_municipios_atingidos_wide.reset_index()
+
             
             tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos_wide, on='Evento', how='left')
             
