@@ -952,7 +952,7 @@ if page=="Painel LaVuRS":
         )
         
         # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10, visible=False)
+        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10)
         
         # Desenhando o gráfico
         draw_chart(chart_width)
