@@ -1222,7 +1222,7 @@ if page=="Painel LaVuRS":
             sns.set_style("white")
                 
             # Criando o gráfico de barras
-            fig_meses = plt.figure(figsize=(14, 6.5))
+            fig_meses = plt.figure(figsize=(10, 6.5))
     
             # Plotando o gráfico de barras
             ax_meses =sns.barplot(data=contagem_por_mes_sorted, x="Mes", y="Nº de Eventos", color="#009000")
