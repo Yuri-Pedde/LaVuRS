@@ -1323,36 +1323,35 @@ if page=="Painel LaVuRS":
                 }
                 </style>
                 """,unsafe_allow_html=True)
-        col17 = st.columns([1])
+
         container7 = st.container()
         with container7:
-            with col17:
-                df_filtrado_evento_tipologia = df_filtrado.copy()
-                df_filtrado_evento_tipologia['Quantidade_Reportagens'] = df_filtrado_evento_tipologia['Quantidade_Reportagens'].astype(int)
-                df_filtrado_evento_tipologia_Reportagens = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
-                df_filtrado_evento_tipologia_Reportagens2 = df_filtrado_evento_tipologia_Reportagens[['Evento',"Quantidade_Reportagens"]].groupby(['Evento'])['Quantidade_Reportagens'].sum().reset_index()
-                df_filtrado_evento_tipologia_eventos = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
-                df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
-                df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
-                df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
-                df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
-                df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
-                contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Municipio']).size().reset_index(name='contagem')
-                # Encontrar o município com o maior número de ocorrências para cada tipo de evento
-                municipio_mais_atingido = contagem.loc[contagem.groupby('Evento')['contagem'].idxmax()]
-                # Renomear as colunas para maior clareza
-                municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
-                
-                df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
-                tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
-                # Reiniciando o índice do DataFrame
-                tabela_tipologia = tabela_tipologia.reset_index(drop=True)
-                # Adicionando a coluna de ranking
-                tabela_tipologia['Ranking'] = tabela_tipologia.index + 1
-                # Definindo a coluna de ranking como o novo índice
-                tabela_tipologia.set_index('Ranking', inplace=True)
-                tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
-                st.dataframe(tabela_tipologia_stilished, use_container_width =True,
+            df_filtrado_evento_tipologia = df_filtrado.copy()
+            df_filtrado_evento_tipologia['Quantidade_Reportagens'] = df_filtrado_evento_tipologia['Quantidade_Reportagens'].astype(int)
+            df_filtrado_evento_tipologia_Reportagens = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+            df_filtrado_evento_tipologia_Reportagens2 = df_filtrado_evento_tipologia_Reportagens[['Evento',"Quantidade_Reportagens"]].groupby(['Evento'])['Quantidade_Reportagens'].sum().reset_index()
+            df_filtrado_evento_tipologia_eventos = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+            df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
+            df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
+            df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
+            df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+            df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
+            contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Municipio']).size().reset_index(name='contagem')
+            # Encontrar o município com o maior número de ocorrências para cada tipo de evento
+            municipio_mais_atingido = contagem.loc[contagem.groupby('Evento')['contagem'].idxmax()]
+            # Renomear as colunas para maior clareza
+            municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
+     
+            df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
+            tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
+            # Reiniciando o índice do DataFrame
+            tabela_tipologia = tabela_tipologia.reset_index(drop=True)
+            # Adicionando a coluna de ranking
+            tabela_tipologia['Ranking'] = tabela_tipologia.index + 1
+            # Definindo a coluna de ranking como o novo índice
+            tabela_tipologia.set_index('Ranking', inplace=True)
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
+            st.dataframe(tabela_tipologia_stilished, use_container_width =True,
                              column_config={'N° Eventos': st.column_config.NumberColumn(
                                             'N° Eventos',
                                             format="%d"),
