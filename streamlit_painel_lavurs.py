@@ -841,19 +841,8 @@ if page=="Painel LaVuRS":
         
         contagem_por_ano['Média de Eventos da Série Histórica'] = media
         contagem_por_ano['Nº de Eventos'] = round(contagem_por_ano['Nº de Eventos'].astype(float),0)
-        title_properties = alt.TitleParams(
-                                            text='Série Histórica: Quantidade de Eventos por Ano',
-                                            fontWeight='bold',
-                                            fontStyle='italic',
-                                            font='Arial',
-                                            fontSize=18,
-                                            color='black',
-                                            baseline='middle',
-                                            orient='top',
-                                            anchor='middle'
-                                          )        
-        # Função para desenhar o gráfico de linhas com Altair
         
+        # Função para desenhar o gráfico de linhas com Altair
         if decada != "Todas as décadas":
             chart = alt.Chart(contagem_por_ano).mark_point().encode(
                 x=alt.X('Ano', scale=alt.Scale(nice=False)),  # Definindo o número de ticks como 10
@@ -864,11 +853,7 @@ if page=="Painel LaVuRS":
                     alt.value('#008000')   # Senão, use verde
                 ),
                 tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
-            ).properties(
-                height=300,
-                width=1500
             )
-    
             # Adicionando linha para a média
             chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
                 (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada)+9))
