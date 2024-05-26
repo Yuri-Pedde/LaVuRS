@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="LaVuRS",
     page_icon="🌍",
     layout="wide",
-    initial_sidebar_state='expanded'
+    initial_sidebar_state='collapsed'
 )
 
 container1 = st.container()
