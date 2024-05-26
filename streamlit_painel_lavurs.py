@@ -101,7 +101,7 @@ if page=="Painel LaVuRS":
     df_original['Ano'] = df_original['Ano'].astype(int)
     df_original['Década'] = df_original['Década'].astype(int)
     def remover_acentos(text):
-    return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
+        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     df_dict = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
     df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: remover_acentos(x))
     df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: x.strip().upper())
