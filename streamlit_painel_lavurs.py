@@ -1418,7 +1418,7 @@ if page=="Painel LaVuRS":
                                                                            'Municipio mais atingido Baixo Sinos', '% de Ocorrência Baixo Sinos']].drop_duplicates()
             
             # Mesclar com o DataFrame de eventos e reportagens
-            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='left')
+            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='inner')
             
             # Ordenar a tabela final por número de eventos
             tabela_tipologia = tabela_tipologia.sort_values(by='N° de Eventos', ascending=False).reset_index(drop=True)
