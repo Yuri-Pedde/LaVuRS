@@ -1382,7 +1382,7 @@ if page=="Painel LaVuRS":
             tabela_tipologia.set_index('Ranking', inplace=True)
             
             # Aplicar estilo à tabela
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
             
             # Exibir a tabela no Streamlit
             st.dataframe(tabela_tipologia_stilished, use_container_width=True,
