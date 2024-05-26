@@ -1428,12 +1428,17 @@ if page=="Painel LaVuRS":
             tabela_tipologia.set_index('Ranking', inplace=True)
             
             # Aplicar estilo à tabela
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
             
             # Exibir a tabela no Streamlit
             st.dataframe(tabela_tipologia_stilished, use_container_width=True,
-                         column_config={'N° de Eventos': st.column_config.NumberColumn('N° de Eventos', format="%d"),
-                                        "N° de Reportagens": st.column_config.NumberColumn("N° de Reportagens", format="%d")})
+                         column_config={
+                             'N° de Eventos': st.column_config.NumberColumn('N° de Eventos', format="%d"),
+                             "N° de Reportagens": st.column_config.NumberColumn("N° de Reportagens", format="%d"),
+                             '% de Ocorrência Alto Sinos': st.column_config.ProgressColumn("% de Ocorrência Alto Sinos"),
+                             '% de Ocorrência Medio Sinos': st.column_config.ProgressColumn("% de Ocorrência Medio Sinos"),
+                             '% de Ocorrência Baixo Sinos': st.column_config.ProgressColumn("% de Ocorrência Baixo Sinos")
+                         })
 
             st.markdown(
                 """
