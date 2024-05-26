@@ -825,8 +825,8 @@ if page=="Painel LaVuRS":
         #contagem_por_ano = contagem_por_ano.rename(columns={'count':'Nº de Eventos'})
         media = contagem_por_ano['Nº de Eventos'].mean()
         media = round(media,0)
-        i=contagem_por_ano['Ano'].astype(int).min()-1
-        maximo_ano = contagem_por_ano['Ano'].astype(int).max()
+        i=contagem_por_ano['Ano'].astype(int).min()-5
+        maximo_ano = contagem_por_ano['Ano'].astype(int).max()+5
         contagem_por_ano['Ano'] = contagem_por_ano['Ano'].astype(str)
         while i<=maximo_ano:
             i_str = str(i)
@@ -930,8 +930,7 @@ if page=="Painel LaVuRS":
             color='black',
             baseline='middle',
             orient='top',
-            anchor='middle'
-        )
+            anchor='middle')
 
         # Configuração dos eixos
         layout_chart = chart_with_markers.configure_axisLeft(
@@ -969,7 +968,7 @@ if page=="Painel LaVuRS":
         col11,col12 = st.columns([1,1.2])    
         with container4:
             with col11:
-                df_decadas = df_original.copy()
+                df_decadas = df_filtrado.copy()
                 df_decadas = df_decadas.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
                 df_decadas = df_decadas.rename(columns={'count':'Nº de Eventos'})
                 df_decadas['Ano'] = df_decadas['Ano'].astype(int).astype(float)
