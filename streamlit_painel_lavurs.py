@@ -1342,7 +1342,7 @@ if page=="Painel LaVuRS":
             municipio_mais_atingido = contagem.loc[contagem.groupby(['Evento', 'Regiao_BHRS'])['contagem'].idxmax()]
             
             # Criar uma estrutura de DataFrame para garantir a presença de todos os tipos de evento e regiões
-            eventos = dados['Evento'].unique()
+            eventos = df_filtrado_evento_tipologia_municipio_mais_atingido['Evento'].unique()
             regioes = ['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS']
             index = pd.MultiIndex.from_product([eventos, regioes], names=['Evento', 'Regiao_BHRS'])
             
