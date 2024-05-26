@@ -810,7 +810,7 @@ if page=="Painel LaVuRS":
             
     container3 = st.container()
     with container3:
-        df_eventos_lavurs_dropado = df_original.copy()
+        df_eventos_lavurs_dropado = df_original.drop_duplicates('Data_Evento')
         if regiao!='Todas as regiões':
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
         if municipio_filtro!="Todos os municípios":
@@ -969,7 +969,7 @@ if page=="Painel LaVuRS":
         with container4:
             with col11:
                 df_decadas = df_original.copy()
-                df_decadas = df_decadas.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
+                df_decadas = df_decadas.drop_duplicates(['Data_Evento'])['Ano'].value_counts().sort_index().reset_index()    
                 df_decadas = df_decadas.rename(columns={'count':'Nº de Eventos'})
                 df_decadas['Ano'] = df_decadas['Ano'].astype(int).astype(float)
                 df_decadas['Década'] = (df_decadas['Ano'] // 10) * 10
