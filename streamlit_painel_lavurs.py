@@ -825,8 +825,8 @@ if page=="Painel LaVuRS":
         #contagem_por_ano = contagem_por_ano.rename(columns={'count':'Nº de Eventos'})
         media = contagem_por_ano['Nº de Eventos'].mean()
         media = round(media,0)
-        i=contagem_por_ano['Ano'].astype(int).min()-5
-        maximo_ano = contagem_por_ano['Ano'].astype(int).max()+5
+        i=contagem_por_ano['Ano'].astype(int).min()
+        maximo_ano = contagem_por_ano['Ano'].astype(int).max()
         contagem_por_ano['Ano'] = contagem_por_ano['Ano'].astype(str)
         while i<=maximo_ano:
             i_str = str(i)
