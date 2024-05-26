@@ -839,87 +839,131 @@ if page=="Painel LaVuRS":
                                             anchor='middle'
                                           )        
         # Função para desenhar o gráfico de linhas com Altair
+        
         if decada != "Todas as décadas":
             chart = alt.Chart(contagem_por_ano).mark_point().encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.condition(
-                        (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada) + 9)),
-                        alt.value('#FF0000'),  # Vermelho para a década selecionada
-                        alt.value('#008000')   # Verde para outras décadas
-                    ),
-                    tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
-                )        
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),  # Definindo o número de ticks como 10
+                y='Nº de Eventos',
+                color=alt.condition(
+                    (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada)+9)), 
+                    alt.value('#FF0000'),  # Se for da década desejada, use vermelho
+                    alt.value('#008000')   # Senão, use verde
+                ),
+                tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
+            ).properties(
+                height=300,
+                width=1500
+            )
+    
+            # Adicionando linha para a média
             chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
-                    (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada) + 9))
-                ).encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.value('#FF0000')
-                ) + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
-                    alt.datum.Ano <= str(decada)
-                ).encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.value('#008000')
-                ) + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
-                    alt.datum.Ano >= str(int(decada) + 9)
-                ).encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.value('#008000')
-                ) + alt.Chart(contagem_por_ano).mark_line().encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),
-                    color=alt.value('#000000')
-                )
+                (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada)+9))
+            ).encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)), # Definindo o número de ticks como 10
+                y='Nº de Eventos',
+                color=alt.value('#FF0000')  # Cor da linha vermelha
+            )
+    
+            # Adicionando outra linha para a média
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
+                alt.datum.Ano <= str(decada)
+            ).encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)), 
+                y='Nº de Eventos',
+                color=alt.value('#008000')  # Linha antes da década em verde
+            )
+    
+            # Adicionando outra linha para a média
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
+                alt.datum.Ano >= str(int(decada)+9)
+            ).encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),  # Definindo o número de ticks como 10
+                y='Nº de Eventos',
+                color=alt.value('#008000')  # Linha após a década em verde
+            )
+    
+            # Adicionando linha da média
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line().encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),  # Definindo o número de ticks como 10
+                y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),
+                color=alt.value('#000000')  # Linha da média em preto
+            )
+    
+            # Adicionando outra linha
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line().encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),  # Definindo o número de ticks como 10
+                y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),  # Adicionando rótulo ao eixo Y
+                color=alt.value('#000000')  # Cor da linha em preto
+            )
+        
         else:
             chart = alt.Chart(contagem_por_ano).mark_point().encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.value('#008000'),
-                    tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
-                )
-        
+            x=alt.X('Ano', scale=alt.Scale(nice=False)),
+            y='Nº de Eventos',
+            color=alt.value('#008000'),
+            tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
+            )
+                                            
+            # Adicionando os marcadores para a linha principal
             chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y='Nº de Eventos',
-                    color=alt.value('#008000')
-                ) + alt.Chart(contagem_por_ano).mark_line().encode(
-                    x=alt.X('Ano', scale=alt.Scale(nice=False)),
-                    y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),
-                    color=alt.value('#000000')
-                )
-        
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),
+                y='Nº de Eventos',
+                color=alt.value('#008000')  # Cor da linha vermelha
+            )
+            # Adicionando outra linha para a média
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line().encode(
+                x=alt.X('Ano', scale=alt.Scale(nice=False)),
+                y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),
+                color=alt.value('#000000')  # Linha da média em preto
+            )
+            # Adicionando outra linha
+            chart_with_markers += alt.Chart(contagem_por_ano).mark_line().encode(
+            x=alt.X('Ano', scale=alt.Scale(nice=False)),
+            y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),  # Adicionando rótulo ao eixo Y em negrito
+            color=alt.value('#000000'))    
+    
+        title_properties = alt.TitleParams(
+            text='Série Histórica: Quantidade de Eventos por Ano',
+            fontWeight='bold',
+            fontStyle='italic',
+            font='Arial',
+            fontSize=18,
+            color='black',
+            baseline='middle',
+            orient='top',
+            anchor='middle'
+        )
+
+        # Configuração dos eixos
         layout_chart = chart_with_markers.configure_axisLeft(
-                    titleFontWeight='bold',
-                    titleFontSize=18,
-                    titleColor='black',
-                ).configure_axisX(
-                    titleFontWeight='bold',
-                    titleFontSize=18,
-                    titleColor='black',
-                    labelFontSize=12,
-                ).properties(height=400, width=1480, title=title_properties)
-            
-        st.altair_chart(layout_chart)
-        
-        
+            titleFontWeight='bold',
+            titleFontSize=18,
+            titleColor='black',
+        ).configure_axisX(
+            titleFontWeight='bold',
+            titleFontSize=18,
+            titleColor='black',
+            labelFontSize=12,
+        ).properties(height=300,width=1500)
+        # Gráfico com título
+        chart_with_title = layout_chart.properties(title=title_properties)
+        st.altair_chart(chart_with_title)
+        # Mostrando o gráfico no Streamlit
         st.markdown(
-            """
-            <style>
-            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(9) > div > div > div:nth-child(1)
-            {    
-                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
-                border: 2px solid green;
-                border-radius: 15px;
-                padding: 15px;
-                max-width: 100%-100px;
-        
-            }
-            </style>
-            """,
-            unsafe_allow_html=True)
+        """
+        <style>
+        #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi5 > div.block-container.st-emotion-cache-z5fcl4.ea3mdgi4 > div > div > div:nth-child(5) > div > div:nth-child(1) {
+            box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+            border: 2px solid green;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 100%-40px;
+    
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+        )
         
         container4 = st.container()
         col11,col12 = st.columns([1,1.2])    
