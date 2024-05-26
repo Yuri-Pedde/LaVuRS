@@ -150,7 +150,7 @@ if page=="Painel LaVuRS":
     with container_filtros:
         #st.write('<div style="margin-top: 15px;">', unsafe_allow_html=True)
         #st.write('</div>', unsafe_allow_html=True)
-        coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.01,1,0.01,1,0.01,1,0.01,1])
+        coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.1,1,0.1,1,0.1,1,0.1,1])
     
         with coluna1:
             
@@ -481,7 +481,7 @@ if page=="Painel LaVuRS":
     municipios_total_atingidos = len(df_filtrado['Municipio'].unique())
     
     container_cards = st.container()
-    col6,col6_5, col7,col7_5,col8,col9_5,col9,col9_5,col10 = st.columns([1,0.001,1,0.001,1,0.001,1,0.001,1])
+    col6,col6_5, col7,col7_5,col8,col9_5,col9,col9_5,col10 = st.columns([1,0.1,1,0.1,1,0.1,1,0.1,1])
     with container_cards:
         
         with col6:
