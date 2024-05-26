@@ -810,7 +810,7 @@ if page=="Painel LaVuRS":
             
     container3 = st.container()
     with container3:
-        df_eventos_lavurs_dropado = df_original.drop_duplicates('Data_Evento')
+        df_eventos_lavurs_dropado = df_regioes_lavurs_inicio_mapeado.drop_duplicates('Data_Evento')
         if regiao!='Todas as regiões':
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
         if municipio_filtro!="Todos os municípios":
@@ -824,7 +824,7 @@ if page=="Painel LaVuRS":
         contagem_por_ano = contagem_por_ano.groupby('Ano').size().reset_index(name='Nº de Eventos')
         #contagem_por_ano = contagem_por_ano.rename(columns={'count':'Nº de Eventos'})
         media = contagem_por_ano['Nº de Eventos'].mean()
-        media = round(media,0)
+        media = round(media,1)
         i=contagem_por_ano['Ano'].astype(int).min()
         maximo_ano = contagem_por_ano['Ano'].astype(int).max()
         contagem_por_ano['Ano'] = contagem_por_ano['Ano'].astype(str)
@@ -968,7 +968,7 @@ if page=="Painel LaVuRS":
         col11,col12 = st.columns([1,1.2])    
         with container4:
             with col11:
-                df_decadas = df_original.copy()
+                df_decadas = df_regioes_lavurs_inicio_mapeado.copy()
                 df_decadas = df_decadas.drop_duplicates(['Data_Evento'])['Ano'].value_counts().sort_index().reset_index()    
                 df_decadas = df_decadas.rename(columns={'count':'Nº de Eventos'})
                 df_decadas['Ano'] = df_decadas['Ano'].astype(int).astype(float)
