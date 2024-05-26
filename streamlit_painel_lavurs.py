@@ -1218,7 +1218,7 @@ if page=="Painel LaVuRS":
             
             # Resetar o índice (opcional)
             contagem_por_mes_sorted = contagem_por_mes_sorted.reset_index(drop=True)
-    
+            contagem_por_mes_sorted['Mes'] = contagem_por_mes_sorted['Mes'].replace('NÃO IDENTIFICADO','N/I')
             sns.set_style("white")
                 
             # Criando o gráfico de barras
