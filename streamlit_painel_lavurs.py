@@ -1389,7 +1389,7 @@ if page=="Painel LaVuRS":
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if not municipio_mais_atingido[
+                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
                 ].empty else '-', axis=1)
@@ -1398,7 +1398,7 @@ if page=="Painel LaVuRS":
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if not municipio_mais_atingido[
+                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
                 ].empty else '-', axis=1)
@@ -1407,7 +1407,7 @@ if page=="Painel LaVuRS":
                 lambda row: round((municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if not municipio_mais_atingido[
+                ]['contagem'].values[0] / row['total_ocorrencias']), 2) if not municipio_mais_atingido[
                     (municipio_mais_atingido['Evento'] == row['Evento']) &
                     (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
                 ].empty else '-', axis=1)
@@ -1428,7 +1428,7 @@ if page=="Painel LaVuRS":
             tabela_tipologia.set_index('Ranking', inplace=True)
             
             # Aplicar estilo à tabela
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
             
             # Exibir a tabela no Streamlit
             st.dataframe(tabela_tipologia_stilished, use_container_width=True,
