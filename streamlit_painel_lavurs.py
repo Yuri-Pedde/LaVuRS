@@ -900,10 +900,10 @@ if page=="Painel LaVuRS":
                 labelFontSize=12,
             ).properties(title=title_properties)
     
-        st.altair_chart(layout_chart, use_container_width=True)
+        #st.altair_chart(layout_chart, use_container_width=True)
     
         # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=800, max_value=1680, value=1680, step=10)
+        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10)
         
         # Desenhando o gráfico
         draw_chart(chart_width)
