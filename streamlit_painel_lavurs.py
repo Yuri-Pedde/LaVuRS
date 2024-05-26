@@ -1216,7 +1216,7 @@ if page=="Painel LaVuRS":
                 ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
                 sns.despine()
                 # Personalizando os valores do eixo X
-                plt.xticks(fontsize=12, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
+                plt.xticks(fontsize=10, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
             
                 plt.yticks([])
     
