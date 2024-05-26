@@ -901,7 +901,7 @@ if page=="Painel LaVuRS":
                     titleFontSize=18,
                     titleColor='black',
                     labelFontSize=12,
-                ).properties(height=400, width=width, title=title_properties)
+                ).properties(height=400, width=1480, title=title_properties)
             
                 st.altair_chart(layout_chart, use_container_width=True)
         
