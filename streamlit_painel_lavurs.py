@@ -929,9 +929,9 @@ if page=="Painel LaVuRS":
             const mediaQuery = window.matchMedia('(max-width: 1200px)')
             function handleResize(e) {
                 if (e.matches) {
-                    Streamlit.setComponentValue(800)
+                    Streamlit.setComponentValue(1380)
                 } else {
-                    Streamlit.setComponentValue(1600)
+                    Streamlit.setComponentValue(1680)
                 }
             }
             mediaQuery.addListener(handleResize)
@@ -942,7 +942,7 @@ if page=="Painel LaVuRS":
         )
         
         # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=800, max_value=1600, value=1600, step=10)
+        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10)
         
         # Desenhando o gráfico
         draw_chart(chart_width)
