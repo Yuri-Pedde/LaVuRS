@@ -839,9 +839,8 @@ if page=="Painel LaVuRS":
                                             anchor='middle'
                                           )        
         # Função para desenhar o gráfico de linhas com Altair
-        def draw_chart(width):
-            if decada != "Todas as décadas":
-                chart = alt.Chart(contagem_por_ano).mark_point().encode(
+        if decada != "Todas as décadas":
+            chart = alt.Chart(contagem_por_ano).mark_point().encode(
                     x=alt.X('Ano', scale=alt.Scale(nice=False)),
                     y='Nº de Eventos',
                     color=alt.condition(
@@ -851,7 +850,7 @@ if page=="Painel LaVuRS":
                     ),
                     tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
                 )        
-                chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
+            chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
                     (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada) + 9))
                 ).encode(
                     x=alt.X('Ano', scale=alt.Scale(nice=False)),
@@ -874,15 +873,15 @@ if page=="Painel LaVuRS":
                     y=alt.Y('Média de Eventos da Série Histórica', title='Número de Eventos'),
                     color=alt.value('#000000')
                 )
-            else:
-                chart = alt.Chart(contagem_por_ano).mark_point().encode(
+        else:
+            chart = alt.Chart(contagem_por_ano).mark_point().encode(
                     x=alt.X('Ano', scale=alt.Scale(nice=False)),
                     y='Nº de Eventos',
                     color=alt.value('#008000'),
                     tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
                 )
         
-                chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').encode(
+            chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').encode(
                     x=alt.X('Ano', scale=alt.Scale(nice=False)),
                     y='Nº de Eventos',
                     color=alt.value('#008000')
@@ -892,7 +891,7 @@ if page=="Painel LaVuRS":
                     color=alt.value('#000000')
                 )
         
-                layout_chart = chart_with_markers.configure_axisLeft(
+        layout_chart = chart_with_markers.configure_axisLeft(
                     titleFontWeight='bold',
                     titleFontSize=18,
                     titleColor='black',
@@ -903,52 +902,8 @@ if page=="Painel LaVuRS":
                     labelFontSize=12,
                 ).properties(height=400, width=1480, title=title_properties)
             
-                st.altair_chart(layout_chart, use_container_width=True)
+        st.altair_chart(layout_chart)
         
-        st.markdown(
-            """
-            <style>
-            @media (max-width: 1200px) {
-                .stApp {
-                    width: calc(100vw - 21rem);
-                }
-            }
-            @media (min-width: 1200px) {
-                .stApp {
-                    width: calc(100vw - 5rem);
-                }
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        # Definindo a largura do gráfico baseado na largura da janela
-        import streamlit.components.v1 as components
-        
-        components.html(
-            """
-            <script>
-            const mediaQuery = window.matchMedia('(max-width: 1200px)')
-            function handleResize(e) {
-                if (e.matches) {
-                    Streamlit.setComponentValue(1280)
-                } else {
-                    Streamlit.setComponentValue(1680)
-                }
-            }
-            mediaQuery.addListener(handleResize)
-            handleResize(mediaQuery)
-            </script>
-            """,
-            height=0,
-        )
-        
-        # Desenhando o gráfico
-        if 'chart_width' not in st.session_state:
-            st.session_state.chart_width = 1000
-        # Desenhando o gráfico
-        draw_chart(st.session_state.chart_width)
         
         st.markdown(
             """
