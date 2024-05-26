@@ -728,7 +728,7 @@ if page=="Painel LaVuRS":
             heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'BAIXO SINOS'})])
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
             
-            fig, ax = plt.subplots(figsize=(6.55, 6.8))
+            fig, ax = plt.subplots(figsize=(13.1, 13.6))
 
             
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
