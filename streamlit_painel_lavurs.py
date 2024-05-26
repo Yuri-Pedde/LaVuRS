@@ -907,7 +907,7 @@ if page=="Painel LaVuRS":
                     titleFontSize=18,
                     titleColor='black',
                     labelFontSize=12,
-                ).properties(height=300,widtH=chart_width, title=title_properties)
+                ).properties(title=title_properties)
             
                 st.altair_chart(layout_chart, use_container_width=True)
         
@@ -933,8 +933,11 @@ if page=="Painel LaVuRS":
         # Definindo a largura do gráfico baseado na largura da janela
         import streamlit.components.v1 as components
         
+        # Definindo o valor inicial para chart_width
+        chart_width = 1680
+        
         components.html(
-            """
+            f"""
             <script>
             const mediaQuery = window.matchMedia('(max-width: 1200px)')
             function handleResize(e) {
@@ -951,11 +954,9 @@ if page=="Painel LaVuRS":
             height=0,
         )
         
-        # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=1380, max_value=1680, value=1680, step=10)
-        
         # Desenhando o gráfico
         draw_chart(chart_width)
+        
         st.markdown(
             """
             <style>
