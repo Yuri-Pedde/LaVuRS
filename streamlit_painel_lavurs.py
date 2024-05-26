@@ -1198,7 +1198,7 @@ if page=="Painel LaVuRS":
                 """,
                 unsafe_allow_html=True
                 )
-        col15, col16 = st.columns(2)
+        col15, col16 = st.columns([1.5,1])
         container6 = st.container()
         with container6:
             with col15:
