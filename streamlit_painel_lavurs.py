@@ -903,7 +903,7 @@ if page=="Painel LaVuRS":
                     labelFontSize=12,
                 ).properties(height=400, width=width, title=title_properties)
             
-                st.altair_chart(layout_chart)
+                st.altair_chart(layout_chart, use_container_width=True)
         
         st.markdown(
             """
@@ -932,9 +932,9 @@ if page=="Painel LaVuRS":
             const mediaQuery = window.matchMedia('(max-width: 1200px)')
             function handleResize(e) {
                 if (e.matches) {
-                    Streamlit.setComponentValue(1380)
+                    Streamlit.setComponentValue(1280)
                 } else {
-                    Streamlit.setComponentValue(1480)
+                    Streamlit.setComponentValue(1680)
                 }
             }
             mediaQuery.addListener(handleResize)
@@ -946,7 +946,7 @@ if page=="Painel LaVuRS":
         
         # Desenhando o gráfico
         if 'chart_width' not in st.session_state:
-            st.session_state.chart_width = 1480
+            st.session_state.chart_width = 1000
         # Desenhando o gráfico
         draw_chart(st.session_state.chart_width)
         
