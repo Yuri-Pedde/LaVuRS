@@ -77,6 +77,7 @@ st.markdown("""<style>
 st.sidebar.title("Navegação")
 # CSS para estilizar os itens da sidebar
 page = st.sidebar.radio("Vá para a página:", ["Painel LaVuRS", "Sobre o Painel"])
+
 if page=="Painel LaVuRS":
     @st.cache_data #nao precisa fazer o loading o tempo todo
     def load_geodata(url):
@@ -676,7 +677,7 @@ if page=="Painel LaVuRS":
             st.markdown(
             """
             <style>
-                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(7) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div.st-emotion-cache-xchpfm.e1f1d6gn3 > div > div > div > div:nth-child(2) > div > div
+                #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(7) > div > div > div.st-emotion-cache-ocqkz7.e1f1d6gn5 > div.st-emotion-cache-xchpfm.e1f1d6gn3
                 {
                 box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
                 border: 2px solid green;
