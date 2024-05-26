@@ -1343,78 +1343,36 @@ if page=="Painel LaVuRS":
             # Encontrar o município com o maior número de ocorrências para cada região e evento
             municipio_mais_atingido = contagem.loc[contagem.groupby(['Evento', 'Regiao_BHRS'])['contagem'].idxmax()]
             
-            # Criar uma estrutura de DataFrame para garantir a presença de todos os tipos de evento e regiões
-            eventos = df_filtrado_evento_tipologia_merged_final['Evento'].unique()
-            regioes = ['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS']
-            index = pd.MultiIndex.from_product([eventos, regioes], names=['Evento', 'Regiao_BHRS'])
-            
-            # Inicializar o DataFrame final com os índices criados
-            df_final_municipios_atingidos = pd.DataFrame(index=index).reset_index()
-            
-            # Adicionar as colunas de município mais atingido para cada região
-            df_final_municipios_atingidos['Municipio mais atingido Alto Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ]['Municipio'].values[0] if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ].empty else '-', axis=1)
-            
-            df_final_municipios_atingidos['Municipio mais atingido Medio Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ]['Municipio'].values[0] if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ].empty else '-', axis=1)
-            
-            df_final_municipios_atingidos['Municipio mais atingido Baixo Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ]['Municipio'].values[0] if not municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ].empty else '-', axis=1)
-            
             # Calcular as porcentagens de ocorrências
             total_ocorrencias = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Regiao_BHRS']).size().reset_index(name='total_ocorrencias')
             
-            df_final_municipios_atingidos = pd.merge(df_final_municipios_atingidos, total_ocorrencias, on=['Evento', 'Regiao_BHRS'], how='left')
+            # Mesclar total de ocorrências com o DataFrame de municípios mais atingidos
+            municipio_mais_atingido = pd.merge(municipio_mais_atingido, total_ocorrencias, on=['Evento', 'Regiao_BHRS'], how='left')
             
-            # Inicializar colunas de porcentagem com valor zero
-            df_final_municipios_atingidos['% de Ocorrência Alto Sinos'] = 0
-            df_final_municipios_atingidos['% de Ocorrência Medio Sinos'] = 0
-            df_final_municipios_atingidos['% de Ocorrência Baixo Sinos'] = 0
+            # Calcular a porcentagem de ocorrências para cada município mais atingido
+            municipio_mais_atingido['% de Ocorrência'] = (municipio_mais_atingido['contagem'] / municipio_mais_atingido['total_ocorrencias']) * 100
             
-            # Calcular a porcentagem de ocorrências para cada região
-            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'ALTO SINOS', '% de Ocorrência Alto Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: round((municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'ALTO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Alto Sinos'] != '-' else '-', axis=1)
+            # Criar um DataFrame final para armazenar as informações
+            df_final_municipios_atingidos = pd.DataFrame(index=eventos, columns=['Municipio mais atingido Alto Sinos', '% de Ocorrência Alto Sinos',
+                                                                                 'Municipio mais atingido Medio Sinos', '% de Ocorrência Medio Sinos',
+                                                                                 'Municipio mais atingido Baixo Sinos', '% de Ocorrência Baixo Sinos'])
             
-            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'MEDIO SINOS', '% de Ocorrência Medio Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: round((municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'MEDIO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Medio Sinos'] != '-' else '-', axis=1)
-            
-            df_final_municipios_atingidos.loc[df_final_municipios_atingidos['Regiao_BHRS'] == 'BAIXO SINOS', '% de Ocorrência Baixo Sinos'] = df_final_municipios_atingidos.apply(
-                lambda row: round((municipio_mais_atingido[
-                    (municipio_mais_atingido['Evento'] == row['Evento']) &
-                    (municipio_mais_atingido['Regiao_BHRS'] == 'BAIXO SINOS')
-                ]['contagem'].values[0] / row['total_ocorrencias']) * 100, 2) if row['Municipio mais atingido Baixo Sinos'] != '-' else '-', axis=1)
-            
-            # Ajustar as colunas de df_final_municipios_atingidos para combinar com a estrutura de df_filtrado_evento_tipologia_merged_final
-            df_final_municipios_atingidos = df_final_municipios_atingidos[['Evento', 'Municipio mais atingido Alto Sinos', '% de Ocorrência Alto Sinos', 
-                                                                           'Municipio mais atingido Medio Sinos', '% de Ocorrência Medio Sinos', 
-                                                                           'Municipio mais atingido Baixo Sinos', '% de Ocorrência Baixo Sinos']].drop_duplicates()
+            for evento in eventos:
+                for regiao in regioes:
+                    temp = municipio_mais_atingido[(municipio_mais_atingido['Evento'] == evento) & (municipio_mais_atingido['Regiao_BHRS'] == regiao)]
+                    if not temp.empty:
+                        if regiao == 'ALTO SINOS':
+                            df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Alto Sinos'] = temp['Municipio'].values[0]
+                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Alto Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
+                        elif regiao == 'MEDIO SINOS':
+                            df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Medio Sinos'] = temp['Municipio'].values[0]
+                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Medio Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
+                        elif regiao == 'BAIXO SINOS':
+                            df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Baixo Sinos'] = temp['Municipio'].values[0]
+                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Baixo Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
             
             # Mesclar com o DataFrame de eventos e reportagens
-            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, on='Evento', how='left')
+            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, left_on='Evento', right_index=True, how='left')
             
             # Ordenar a tabela final por número de eventos
             tabela_tipologia = tabela_tipologia.sort_values(by='N° de Eventos', ascending=False).reset_index(drop=True)
