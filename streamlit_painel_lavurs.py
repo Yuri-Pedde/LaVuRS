@@ -810,7 +810,21 @@ if page=="Painel LaVuRS":
             
     container3 = st.container()
     with container3:
-        df_eventos_lavurs_dropado = df_regioes_lavurs_inicio_mapeado.drop_duplicates('Data_Evento')
+        df_municipios_lavurs_inicio2 = df_original.assign(Municipio=df_original['Municipio'].str.split('; ')).explode('Municipio')
+        df_regiao_muni_dict2 = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
+        df_regiao_muni_dict2['Municipio'] = df_regiao_muni_dict2['Municipio'].apply(lambda x: remover_acentos(x))
+        df_regiao_muni_dict2['Municipio'] = df_regiao_muni_dict2['Municipio'].apply(lambda x: x.strip().upper())
+        df_municipios_lavurs_inicio2['Municipio'] = df_municipios_lavurs_inicio2['Municipio'].apply(lambda x: remover_acentos(x))
+        df_municipios_lavurs_inicio2['Municipio'] = df_municipios_lavurs_inicio2['Municipio'].apply(lambda x: x.strip().upper())
+            # Verificação da correspondência
+        municipios_nao_encontrados2 = df_municipios_lavurs_inicio2[~df_municipios_lavurs_inicio2['Municipio'].isin(df_regiao_muni_dict2['Municipio'])]
+        for mun in municipios_nao_encontrados2['Municipio'].unique():
+            df_municipios_lavurs_inicio2 = df_municipios_lavurs_inicio2[df_municipios_lavurs_inicio2['Municipio'] != mun]
+        df_regiao_muni_dict2 = df_regiao_muni_dict2.set_index('Municipio')
+        dicionario_regiao_muni2 = df_regiao_muni_dict2.to_dict()['Regiao_BHRS']
+        df_municipios_lavurs_inicio['Regiao_BHRS'] = df_municipios_lavurs_inicio2['Municipio'].map(dicionario_regiao_muni2)
+        df_regioes_lavurs_inicio_mapeado2 = df_municipios_lavurs_inicio2.dropna(how='any').reset_index(drop=True)
+        df_eventos_lavurs_dropado = df_regioes_lavurs_inicio_mapeado2.copy()
         if regiao!='Todas as regiões':
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
         if municipio_filtro!="Todos os municípios":
