@@ -1334,37 +1334,69 @@ if page=="Painel LaVuRS":
             df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
             df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
             df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
+            
             df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
             df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
-            contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Municipio']).size().reset_index(name='contagem')
-            # Encontrar o município com o maior número de ocorrências para cada tipo de evento
-            municipio_mais_atingido = contagem.loc[contagem.groupby('Evento')['contagem'].idxmax()]
-            # Renomear as colunas para maior clareza
-            municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
-            df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
-            df_filtrado_evento_tipologia_merged_final2['% de Ocorrência'] = round(df_filtrado_evento_tipologia_merged_final2['Número de Ocorrências']*100/df_filtrado_evento_tipologia_merged_final2['N° de Eventos'],1)
+            contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Regiao_BHRS', 'Municipio']).size().reset_index(name='contagem')
+            # Encontrar o município com o maior número de ocorrências para cada região e evento
+            municipio_mais_atingido = contagem.loc[contagem.groupby(['Evento', 'Regiao_BHRS'])['contagem'].idxmax()]
             
-            tabela_tipologia = df_filtrado_evento_tipologia_merged_final2.sort_values(by='N° de Eventos', ascending=False)
-            # Reiniciando o índice do DataFrame
-            tabela_tipologia = tabela_tipologia.reset_index(drop=True)
-            # Adicionando a coluna de ranking
+            # Criar uma estrutura de DataFrame para garantir a presença de todos os tipos de evento e regiões
+            eventos = dados['Evento'].unique()
+            regioes = ['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS']
+            index = pd.MultiIndex.from_product([eventos, regioes], names=['Evento', 'Regiao_BHRS'])
+            
+            # Inicializar o DataFrame final com os índices criados
+            df_final_municipios_atingidos = pd.DataFrame(index=index).reset_index()
+            
+            # Adicionar as colunas de município mais atingido para cada região
+            df_final_municipios_atingidos['Municipio mais atingido Alto Sinos'] = df_final_municipios_atingidos.apply(
+                lambda row: municipio_mais_atingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Alto Sinos')
+                ]['Municipio'].values[0] if not municipio_mais_atingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Alto Sinos')
+                ].empty else '-', axis=1)
+            
+            df_final_municipios_atingidos['Municipio mais atingido Medio Sinos'] = df_final_municipios_atingidos.apply(
+                lambda row: municipio_mais_tingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Medio Sinos')
+                ]['Municipio'].values[0] if not municipio_mais_atingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Medio Sinos')
+                ].empty else '-', axis=1)
+            
+            df_final_municipios_atingidos['Municipio mais atingido Baixo Sinos'] = df_final_municipios_atingidos.apply(
+                lambda row: municipio_mais_atingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Baixo Sinos')
+                ]['Municipio'].values[0] if not municipio_mais_atingido[
+                    (municipio_mais_atingido['Evento'] == row['Evento']) &
+                    (municipio_mais_atingido['Regiao_BHRS'] == 'Baixo Sinos')
+                ].empty else '-', axis=1)
+            # Mesclar o DataFrame de municípios mais atingidos com o DataFrame final de eventos e reportagens
+            df_final_municipios_atingidos_wide = df_final_municipios_atingidos.pivot(index='Evento', columns='Regiao_BHRS', values='Municipio')
+            df_final_municipios_atingidos_wide.columns = ['Municipio mais atingido Alto Sinos', 'Municipio mais atingido Medio Sinos', 'Municipio mais atingido Baixo Sinos']
+            df_final_municipios_atingidos_wide = df_final_municipios_atingidos_wide.reset_index()
+            
+            tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos_wide, on='Evento', how='left')
+            
+            # Ordenar a tabela final por número de eventos
+            tabela_tipologia = tabela_tipologia.sort_values(by='N° de Eventos', ascending=False).reset_index(drop=True)
+            
+            # Adicionar a coluna de ranking
             tabela_tipologia['Ranking'] = tabela_tipologia.index + 1
-            # Definindo a coluna de ranking como o novo índice
             tabela_tipologia.set_index('Ranking', inplace=True)
-            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap=cmap, subset=['N° de Eventos', 'N° de Reportagens'])
-            st.dataframe(tabela_tipologia_stilished, use_container_width =True,
-                             column_config={'N° Eventos': st.column_config.NumberColumn(
-                                            'N° Eventos',
-                                            format="%d"),
-                                            "N° Reportagens": st.column_config.NumberColumn(
-                                            "N° de Reportagens",
-                                            format="%d"),'% de Ocorrência': st.column_config.ProgressColumn(
-                                            r'% de Ocorrência',
-                                            help="% de Ocorrência no Município mais atingido",
-                                            format="%f",
-                                            min_value=0,
-                                            max_value=100,)}
-                                            )
+            
+            # Aplicar estilo à tabela
+            tabela_tipologia_stilished = tabela_tipologia.style.background_gradient(cmap='viridis', subset=['N° de Eventos', 'N° de Reportagens'])
+            
+            # Exibir a tabela no Streamlit
+            st.dataframe(tabela_tipologia_stilished, use_container_width=True,
+                         column_config={'N° de Eventos': st.column_config.NumberColumn('N° de Eventos', format="%d"),
+                                        "N° de Reportagens": st.column_config.NumberColumn("N° de Reportagens", format="%d")})
 
             st.markdown(
                 """
