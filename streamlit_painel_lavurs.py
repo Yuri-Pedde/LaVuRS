@@ -87,6 +87,7 @@ if page=="Painel LaVuRS":
     def load_df(url):
         df_x = pd.read_excel(url)
         return df_x
+        
     @st.cache_data
     def load_df2(url):
         df_x = pd.read_excel(url, sheet_name="Página1")
@@ -99,10 +100,28 @@ if page=="Painel LaVuRS":
     df_original['Década'] = df_original['Década'].astype(int).astype(str)
     df_original['Ano'] = df_original['Ano'].astype(int)
     df_original['Década'] = df_original['Década'].astype(int)
+    
+    df_dict = load_df2('https://docs.google.com/spreadsheets/d/e/2PACX-1vQTq8R52z3oc9uW3FUsCjym25giwCvrPfcmLwWyc8ugt-c4g5uR-ZKUG3EOBdIP62sLnWSP68dnVkUw/pub?output=xlsx')
+    df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: remover_acentos(x))
+    df_dict['Municipio'] = df_dict['Municipio'].apply(lambda x: x.strip().upper())
+    municipio_to_regiao = dict(zip(df_dict.Municipio, df_dict.Regiao_BHRS))
+    # Função para obter a região a partir dos municípios
+    def get_regiao(municipios):
+        # Separar os municípios e obter as regiões correspondentes
+        regioes = set()
+        for mun in municipios.split(';'):
+            mun = mun.strip()
+            if mun in municipio_to_regiao:
+                regioes.add(municipio_to_regiao[mun])
+            else:
+                regioes.add("OUTRAS BACIAS")
+        return '; '.join(regioes)
     for coluna in df_original.columns:
         df_original[coluna] = df_original[coluna].astype(str).str.strip()
-    eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
     
+    df_original["Regiao_BHRS"] = df_original["Municipio"].apply(get_regiao)
+
+    eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
     def remover_acentos(text):
         return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     
@@ -242,7 +261,7 @@ if page=="Painel LaVuRS":
             df_regioes_lavurs_inicio_alto = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='ALTO SINOS']
             df_regioes_lavurs_inicio_baixo = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='BAIXO SINOS']
             df_regioes_lavurs_inicio_medio = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='MEDIO SINOS']
-            df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto,df_regioes_lavurs_inicio_baixo,df_regioes_lavurs_inicio_medio])
+            df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto, df_regioes_lavurs_inicio_medio, df_regioes_lavurs_inicio_baixo])
             if ano == "Todos os anos" and decada != "Todas as décadas":
                 regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Década'] == decada]['Regiao_BHRS'].unique())
             elif ano != "Todos os anos" and decada != "Todas as décadas":
