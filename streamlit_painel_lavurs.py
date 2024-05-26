@@ -162,6 +162,7 @@ if page=="Painel LaVuRS":
             border-radius: 15px;
             border: 3px solid green;
             display: flex;
+            margin: auto;
             justify-content: center;
             align-items: center;
         }}
