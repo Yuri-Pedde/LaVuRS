@@ -617,7 +617,7 @@ if page=="Painel LaVuRS":
                                            mapbox_style="stamen-watercolor",
                                            hover_name='Municipio',
                                            width=800,
-                                           height=680   ,
+                                           height=680,
                                            template='plotly_dark',)
                                            
             map_fig.update_traces(marker_line_width=0.5)
@@ -728,7 +728,7 @@ if page=="Painel LaVuRS":
             heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'BAIXO SINOS'})])
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
             
-            if "expanded" not in st.session_state:
+            if "expanded" not in st.sidebar:
                 fig, ax = plt.subplots(figsize=(11, 14))
             else:
                 fig, ax = plt.subplots(figsize=(11, 12))
@@ -736,7 +736,7 @@ if page=="Painel LaVuRS":
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
-            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=0.9, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08})
+            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=0.9, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08}, height=680)
             
             plt.axhline(y=-0.5, color='black', linestyle='-', linewidth=1)
     
