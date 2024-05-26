@@ -1009,7 +1009,7 @@ if page=="Painel LaVuRS":
                 plt.ylabel('Número de Eventos', fontsize=16)
                 for i, p in enumerate(ax.patches):
                 # Obtendo a década correspondente ao índice da barra
-                    decada_x = contagem_por_decada.loc[i, 'Década']
+                    str(decada_x) = contagem_por_decada.loc[i, 'Década']
                     if decada == decada_x:
                         p.set_color('red')  # Se for a década selecionada, cor da barra vermelha
                     else:
@@ -1038,12 +1038,9 @@ if page=="Painel LaVuRS":
                     padding: 15px;
                     max-width: 100%;
                 }
-    
                 </style>
-                """,
-                unsafe_allow_html=True
-                )
-            st.write(decada)
+                """,unsafe_allow_html=True)
+                
             with col12:
                 df_fonte_explodido = df_filtrado.assign(Fonte=df_filtrado['Fonte'].str.split('; ')).explode('Fonte')
                 df_fonte_explodido['Quantidade_Reportagens'] = df_fonte_explodido['Quantidade_Reportagens'].astype(int)
