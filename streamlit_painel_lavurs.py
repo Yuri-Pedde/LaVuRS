@@ -810,7 +810,7 @@ if page=="Painel LaVuRS":
             
     container3 = st.container()
     with container3:
-        df_eventos_lavurs_dropado = df_filtrado.copy()
+        df_eventos_lavurs_dropado = df_eventos_lavurs.copy()
         if regiao!='Todas as regiões':
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
         if municipio_filtro!="Todos os municípios":
