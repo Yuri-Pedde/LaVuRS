@@ -842,8 +842,7 @@ if page=="Painel LaVuRS":
                     tooltip=['Ano', 'Nº de Eventos', 'Média de Eventos da Série Histórica']
                 ).properties(
                     height=400,
-                    width=width
-                )
+                    width=width)
         
                 chart_with_markers = chart + alt.Chart(contagem_por_ano).mark_line(interpolate='cardinal').transform_filter(
                     (alt.datum.Ano >= str(decada)) & (alt.datum.Ano <= str(int(decada) + 9))
@@ -889,18 +888,18 @@ if page=="Painel LaVuRS":
                     color=alt.value('#000000')
                 )
         
-            layout_chart = chart_with_markers.configure_axisLeft(
-                titleFontWeight='bold',
-                titleFontSize=18,
-                titleColor='black',
-            ).configure_axisX(
-                titleFontWeight='bold',
-                titleFontSize=18,
-                titleColor='black',
-                labelFontSize=12,
-            ).properties(title=title_properties)
-        
-            st.altair_chart(layout_chart, use_container_width=True)
+                layout_chart = chart_with_markers.configure_axisLeft(
+                    titleFontWeight='bold',
+                    titleFontSize=18,
+                    titleColor='black',
+                ).configure_axisX(
+                    titleFontWeight='bold',
+                    titleFontSize=18,
+                    titleColor='black',
+                    labelFontSize=12,
+                ).properties(title=title_properties)
+            
+                st.altair_chart(layout_chart, use_container_width=True)
         
         # Ajuste dinâmico do layout baseado na largura da janela
         st.markdown(
@@ -943,7 +942,7 @@ if page=="Painel LaVuRS":
         )
         
         # Placeholder para ajustar o tamanho do gráfico
-        chart_width = st.slider("Adjust chart width", min_value=800, max_value=1600, value=1600, step=10)
+        #chart_width = st.slider("Adjust chart width", min_value=800, max_value=1600, value=1600, step=10)
         
         # Desenhando o gráfico
         draw_chart(chart_width)
