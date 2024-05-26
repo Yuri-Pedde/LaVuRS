@@ -906,6 +906,7 @@ if page=="Painel LaVuRS":
         )
         if "expanded" not in st.session_state:
             st.session_state.sidebar_expanded = False
+            st.write(st.session_state.sidebar_expanded)
         def toggle_sidebar():
             st.session_state.sidebar_expanded = not st.session_state.sidebar_expanded
         
