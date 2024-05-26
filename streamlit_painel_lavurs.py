@@ -819,7 +819,7 @@ if page=="Painel LaVuRS":
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
         
         df_eventos_lavurs_dropado_filtrado = df_eventos_lavurs_dropado.copy()
-        contagem_por_ano = df_eventos_lavurs_dropado_filtrado.drop_duplicates(['Data_Evento','Ano'])['Ano'].value_counts().sort_index().reset_index()    
+        contagem_por_ano = df_eventos_lavurs_dropado_filtrado.drop_duplicates(['Data_Evento'])['Ano'].value_counts().sort_index().reset_index()    
         contagem_por_ano = contagem_por_ano.rename(columns={'count':'Nº de Eventos'})
         media = contagem_por_ano['Nº de Eventos'].mean()
         media = round(media,0)
