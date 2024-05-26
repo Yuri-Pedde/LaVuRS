@@ -21,6 +21,9 @@ st.set_page_config(
     initial_sidebar_state='collapsed'
 )
 
+def remover_acentos(text):
+    return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
+
 container1 = st.container()
 with container1:
     col1, col2, col3 = st.columns([2,9,2])
@@ -122,8 +125,6 @@ if page=="Painel LaVuRS":
     df_original["Regiao_BHRS"] = df_original["Municipio"].apply(get_regiao)
 
     eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
-    def remover_acentos(text):
-        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
     
     df_original['Municipio'] = df_original['Municipio'].str.upper().apply(lambda x: remover_acentos(x))
     municipios_unicos = df_original['Municipio'].str.split('; ').explode().str.upper().unique()
