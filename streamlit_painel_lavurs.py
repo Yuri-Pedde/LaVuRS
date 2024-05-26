@@ -1363,15 +1363,17 @@ if page=="Painel LaVuRS":
                     if not temp.empty:
                         if regiao == 'ALTO SINOS':
                             df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Alto Sinos'] = temp['Municipio'].values[0]
-                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Alto Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
+                            df_final_municipios_atingidos.loc[evento, f'% de Ocorrência nos eventos do tipo {evento}'] = round(temp['% de Ocorrência'].values[0], 2)
                         elif regiao == 'MEDIO SINOS':
                             df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Medio Sinos'] = temp['Municipio'].values[0]
-                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Medio Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
+                            df_final_municipios_atingidos.loc[evento, f'% de Ocorrência nos eventos do tipo {evento}'] = round(temp['% de Ocorrência'].values[0], 2)
                         elif regiao == 'BAIXO SINOS':
                             df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Baixo Sinos'] = temp['Municipio'].values[0]
-                            df_final_municipios_atingidos.loc[evento, '% de Ocorrência Baixo Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
+                            df_final_municipios_atingidos.loc[evento, f'% de Ocorrência nos eventos do tipo {evento}'] = round(temp['% de Ocorrência'].values[0], 2)
             
-            df_final_municipios_atingidos = df_final_municipios_atingidos.fillna('')
+            df_final_municipios_atingidos['Municipio mais atingido Alto Sinos'] = df_final_municipios_atingidos['Municipio mais atingido Alto Sinos'].fillna('')
+            df_final_municipios_atingidos['Municipio mais atingido Medio Sinos'] = df_final_municipios_atingidos['Municipio mais atingido Medio Sinos'].fillna('')
+            df_final_municipios_atingidos['Municipio mais atingido Baixo Sinos'] = df_final_municipios_atingidos['Municipio mais atingido Baixo Sinos'].fillna('')
             # Mesclar com o DataFrame de eventos e reportagens
             tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, left_on='Evento', right_index=True, how='left')
             
