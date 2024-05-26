@@ -1341,8 +1341,9 @@ if page=="Painel LaVuRS":
             municipio_mais_atingido = contagem.loc[contagem.groupby('Evento')['contagem'].idxmax()]
             # Renomear as colunas para maior clareza
             municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
-     
             df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
+            df_filtrado_evento_tipologia_merged_final2['% de Ocorrência'] = round(df_filtrado_evento_tipologia_merged_final2['Número de Ocorrência']*100/df_filtrado_evento_tipologia_merged_final2['N° de Eventos'],1)
+            
             tabela_tipologia = df_filtrado_evento_tipologia_merged_final2.sort_values(by='N° de Eventos', ascending=False)
             # Reiniciando o índice do DataFrame
             tabela_tipologia = tabela_tipologia.reset_index(drop=True)
@@ -1357,7 +1358,12 @@ if page=="Painel LaVuRS":
                                             format="%d"),
                                             "N° Reportagens": st.column_config.NumberColumn(
                                             "N° de Reportagens",
-                                            format="%d")}
+                                            format="%d"),'% de Ocorrência': st.column_config.ProgressColumn(
+                                            r'% de Ocorrência',
+                                            help="% de Ocorrência no Município mais atingido",
+                                            format="%f",
+                                            min_value=0,
+                                            max_value=100,)}
                                             )
 elif page=="Sobre o Painel":
     st.write('Em contrução')
