@@ -180,6 +180,7 @@ if page=="Painel LaVuRS":
                     border-radius: 15px;
                     padding: 10px;
                     margin-top: 30px;
+                    margin-bottom: 0px;
                 }}
                 </style>
                 """,
