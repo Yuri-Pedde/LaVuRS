@@ -814,7 +814,7 @@ if page=="Painel LaVuRS":
         if regiao!='Todas as regiões':
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Regiao_BHRS']==regiao)]
         if municipio_filtro!="Todos os municípios":
-            df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)
+            df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Municipio']==municipio_filtro)]
         if evento_tipo_filtro!="Todos os tipos de evento":
             df_eventos_lavurs_dropado = df_eventos_lavurs_dropado[(df_eventos_lavurs_dropado['Evento']==evento_tipo_filtro)]
         
