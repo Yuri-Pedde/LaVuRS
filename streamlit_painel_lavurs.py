@@ -734,7 +734,7 @@ if page=="Painel LaVuRS":
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
-            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=0.9, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08}, height=680)
+            sns.heatmap(data=heatmap_data, cmap=cmap, annot=True, fmt='d', linewidths=0.9, annot_kws={"size": 17}, cbar_kws={"orientation": "horizontal", "label": "N° de Eventos", "pad": 0.08})
             
             plt.axhline(y=-0.5, color='black', linestyle='-', linewidth=1)
     
