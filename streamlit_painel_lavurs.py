@@ -76,7 +76,7 @@ st.markdown("""<style>
             </style>""", unsafe_allow_html=True)
 st.sidebar.title("Navegação")
 # CSS para estilizar os itens da sidebar
-page = st.sidebar.radio("Vá para a página:", ["Painel LaVuRS", "Sobre o Painel"])
+page = st.sidebar.radio("", ["Painel LaVuRS", "Sobre o Painel"])
 
 if page=="Painel LaVuRS":
     @st.cache_data #nao precisa fazer o loading o tempo todo
