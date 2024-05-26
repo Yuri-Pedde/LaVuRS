@@ -1248,6 +1248,21 @@ if page=="Painel LaVuRS":
                                 
     
             st.pyplot(plt.gcf())
+
+            st.markdown(
+            """
+            <style>
+            #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(9) > div > div > div.st-emotion-cache-0.e1f1d6gn0 > div > div
+            {                
+                box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.25);
+                border: 2px solid green;
+                border-radius: 15px;
+                overflow: hidden;
+                padding: 15px;
+                max-width: 100%;
+            }
+            </style>
+            """,unsafe_allow_html=True)
 elif page=="Sobre o Painel":
     st.write('Em contrução')
 
