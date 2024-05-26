@@ -1342,7 +1342,7 @@ if page=="Painel LaVuRS":
             # Renomear as colunas para maior clareza
             municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
             df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
-            df_filtrado_evento_tipologia_merged_final2['% de Ocorrência'] = round(df_filtrado_evento_tipologia_merged_final2['Número de Ocorrência']*100/df_filtrado_evento_tipologia_merged_final2['N° de Eventos'],1)
+            df_filtrado_evento_tipologia_merged_final2['% de Ocorrência'] = round(df_filtrado_evento_tipologia_merged_final2['Número de Ocorrências']*100/df_filtrado_evento_tipologia_merged_final2['N° de Eventos'],1)
             
             tabela_tipologia = df_filtrado_evento_tipologia_merged_final2.sort_values(by='N° de Eventos', ascending=False)
             # Reiniciando o índice do DataFrame
