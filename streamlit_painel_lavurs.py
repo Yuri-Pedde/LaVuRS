@@ -827,7 +827,17 @@ if page=="Painel LaVuRS":
         
         contagem_por_ano['Média de Eventos da Série Histórica'] = media
         contagem_por_ano['Nº de Eventos'] = round(contagem_por_ano['Nº de Eventos'].astype(float),0)
-            
+        title_properties = alt.TitleParams(
+                                            text='Série Histórica: Quantidade de Eventos por Ano',
+                                            fontWeight='bold',
+                                            fontStyle='italic',
+                                            font='Arial',
+                                            fontSize=18,
+                                            color='black',
+                                            baseline='middle',
+                                            orient='top',
+                                            anchor='middle'
+                                          )        
         # Função para desenhar o gráfico de linhas com Altair
         def draw_chart(width):
             if decada != "Todas as décadas":
