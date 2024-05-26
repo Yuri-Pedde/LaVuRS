@@ -1199,6 +1199,7 @@ if page=="Painel LaVuRS":
                 unsafe_allow_html=True
                 )
         col15, col16 = st.columns(2)
+        container6 = st.container()
         with container6:
             with col15:
                 df_meses = pd.DataFrame()
