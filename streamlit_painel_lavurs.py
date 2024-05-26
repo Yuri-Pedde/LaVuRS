@@ -1043,7 +1043,7 @@ if page=="Painel LaVuRS":
                 """,
                 unsafe_allow_html=True
                 )
-    
+            st.write(decada)
             with col12:
                 df_fonte_explodido = df_filtrado.assign(Fonte=df_filtrado['Fonte'].str.split('; ')).explode('Fonte')
                 df_fonte_explodido['Quantidade_Reportagens'] = df_fonte_explodido['Quantidade_Reportagens'].astype(int)
