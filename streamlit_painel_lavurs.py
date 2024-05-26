@@ -1371,6 +1371,7 @@ if page=="Painel LaVuRS":
                             df_final_municipios_atingidos.loc[evento, 'Municipio mais atingido Baixo Sinos'] = temp['Municipio'].values[0]
                             df_final_municipios_atingidos.loc[evento, '% de Ocorrência Baixo Sinos'] = round(temp['% de Ocorrência'].values[0], 2)
             
+            df_final_municipios_atingidos = df_final_municipios_atingidos.fillna('')
             # Mesclar com o DataFrame de eventos e reportagens
             tabela_tipologia = pd.merge(df_filtrado_evento_tipologia_merged_final, df_final_municipios_atingidos, left_on='Evento', right_index=True, how='left')
             
