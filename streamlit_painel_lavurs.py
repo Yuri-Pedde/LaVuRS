@@ -1210,13 +1210,13 @@ if page=="Painel LaVuRS":
                 sns.set_style("white")
                 
                 # Criando o gráfico de barras
-                fig_meses = plt.figure(figsize=(12, 6.5))
+                fig_meses = plt.figure(figsize=(14, 6.5))
     
                 # Plotando o gráfico de barras
                 ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
                 sns.despine()
                 # Personalizando os valores do eixo X
-                plt.xticks(fontsize=9, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
+                plt.xticks(fontsize=10, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
             
                 plt.yticks([])
     
