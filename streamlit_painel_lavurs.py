@@ -1278,7 +1278,7 @@ if page=="Painel LaVuRS":
             for autotext, color in zip(autotexts, colors):
                 autotext.set_color('white')  # Definindo a cor do texto para branco
                 autotext.set_backgroundcolor(color)
-                autotext.set_alpha(0.5)  # Definindo a opacidade
+                autotext.set_alpha(0.1)  # Definindo a opacidade
             # Adicionando título
             plt.title("NÚMERO DE REPORTAGENS POR REGIÃO DA BHRS")
             
