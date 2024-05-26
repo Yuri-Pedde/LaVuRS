@@ -161,6 +161,7 @@ if page=="Painel LaVuRS":
             padding: 20px;
             border-radius: 15px;
             border: 3px solid green;
+            margin-top: 30px;
         }}
         </style>
         """, unsafe_allow_html=True)
