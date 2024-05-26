@@ -153,7 +153,6 @@ if page=="Painel LaVuRS":
         coluna1,coluna1_5, coluna2, coluna2_5, coluna3, coluna3_5, coluna4, coluna4_5, coluna5 = st.columns([1,0.1,1,0.1,1,0.1,1,0.1,1])
         
         st.markdown(f"""
-        <h1 style="text-align: center;color:#000000;font-size:26px;margin-top:0px;margin-bottom:0px;">{"FILTROS"}</h1>'
         <style>
         #root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-bm2z3a.ea3mdgi8 > div.block-container.st-emotion-cache-1jicfl2.ea3mdgi5 > div > div > div > div:nth-child(6) > div > div
         {{
