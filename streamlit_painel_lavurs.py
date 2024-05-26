@@ -934,7 +934,7 @@ if page=="Painel LaVuRS":
                 if (e.matches) {
                     Streamlit.setComponentValue(1380)
                 } else {
-                    Streamlit.setComponentValue(1680)
+                    Streamlit.setComponentValue(1580)
                 }
             }
             mediaQuery.addListener(handleResize)
@@ -946,7 +946,7 @@ if page=="Painel LaVuRS":
         
         # Desenhando o gráfico
         if 'chart_width' not in st.session_state:
-            st.session_state.chart_width = 1680
+            st.session_state.chart_width = 1580
         # Desenhando o gráfico
         draw_chart(st.session_state.chart_width)
         
