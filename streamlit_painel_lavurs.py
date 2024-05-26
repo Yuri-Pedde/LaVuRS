@@ -727,11 +727,12 @@ if page=="Painel LaVuRS":
             lista_total_regioes.append([total_alto_sinos,total_baixo_sinos])
             heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'BAIXO SINOS'})])
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
-            if "expanded" in st.session_state:
-            # Criar o mapa de calor
+            
+            if "expanded" not in st.session_state:
                 fig, ax = plt.subplots(figsize=(11, 14))
             else:
                 fig, ax = plt.subplots(figsize=(11, 12))
+            
             heatmap_data = heatmap_data_final_setado#.drop('TOTAL DE EVENTOS')
     
             cmap = sns.cubehelix_palette(start=2, rot=0, dark=0, light=.95, reverse=False, as_cmap=True)
