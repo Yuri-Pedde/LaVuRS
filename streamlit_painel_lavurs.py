@@ -1204,6 +1204,20 @@ if page=="Painel LaVuRS":
             df_meses = df_filtrado.drop_duplicates(['Data_Evento','Mes'])['Mes'].value_counts().sort_index().reset_index()    
             df_meses = df_meses.rename(columns={'count':'Nº de Eventos'})
             contagem_por_mes = df_meses.groupby('Mes')['Nº de Eventos'].sum().reset_index()
+            meses_mapping = {
+                "JANEIRO": 1, "FEVEREIRO": 2, "MARÇO": 3, "ABRIL": 4,
+                "MAIO": 5, "JUNHO": 6, "JULHO": 7, "AGOSTO": 8,
+                "SETEMBRO": 9, "OUTUBRO": 10, "NOVEMBRO": 11, "DEZEMBRO": 12
+            }
+            
+            # Adicionar uma coluna auxiliar para ordenar
+            contagem_por_mes["Mes_num"] = contagem_por_mes["Mes"].map(meses_mapping)
+            
+            # Ordenar o DataFrame pelos valores numéricos dos meses
+            contagem_por_mes_sorted = contagem_por_mes.sort_values("Mes_num").drop(columns="Mes_num")
+            
+            # Resetar o índice (opcional)
+            contagem_por_mes_sorted = contagem_por_mes_sorted.reset_index(drop=True)
     
             sns.set_style("white")
                 
@@ -1211,7 +1225,7 @@ if page=="Painel LaVuRS":
             fig_meses = plt.figure(figsize=(14, 6.5))
     
             # Plotando o gráfico de barras
-            ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
+            ax_meses =sns.barplot(data=contagem_por_mes_sorted, x="Mes", y="Nº de Eventos", color="#009000")
             sns.despine()
             # Personalizando os valores do eixo X
             plt.xticks(fontsize=8, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
