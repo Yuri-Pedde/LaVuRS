@@ -1273,9 +1273,12 @@ if page=="Painel LaVuRS":
             colors = ["#77dd77", "#ff6961", "#000000"]
             fig_pizza, ax_pizza = plt.subplots()    
             # Configurando o gráfico de rosca
-            ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], colors=colors, startangle=90, counterclock=False, 
-                         wedgeprops=dict(width=0.3), autopct='%1.1f%%')
-            
+            wedges, texts, autotexts = ax_pizza.pie(df_pizza2["Quantidade_Reportagens"], labels=df_pizza2["Regiao_BHRS"], colors=colors, startangle=90, 
+                                                    counterclock=False, wedgeprops=dict(width=0.3), autopct='%1.1f%%')
+            for autotext, color in zip(autotexts, colors):
+                autotext.set_color('white')  # Definindo a cor do texto para branco
+                autotext.set_backgroundcolor(color)
+                autotext.set_alpha(0.5)  # Definindo a opacidade
             # Adicionando título
             plt.title("NÚMERO DE REPORTAGENS POR REGIÃO DA BHRS")
             
