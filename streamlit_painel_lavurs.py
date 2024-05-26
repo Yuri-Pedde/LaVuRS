@@ -948,7 +948,7 @@ if page=="Painel LaVuRS":
         if 'chart_width' not in st.session_state:
             st.session_state.chart_width = 1680
         # Desenhando o gráfico
-        draw_chart(chart_width)
+        draw_chart(st.session_state.chart_width)
         
         st.markdown(
             """
