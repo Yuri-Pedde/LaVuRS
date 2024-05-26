@@ -1343,7 +1343,7 @@ if page=="Painel LaVuRS":
             municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
      
             df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
-            tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
+            tabela_tipologia = df_filtrado_evento_tipologia_merged_final2.sort_values(by='N° de Eventos', ascending=False)
             # Reiniciando o índice do DataFrame
             tabela_tipologia = tabela_tipologia.reset_index(drop=True)
             # Adicionando a coluna de ranking
