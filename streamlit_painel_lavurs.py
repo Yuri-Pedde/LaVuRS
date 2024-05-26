@@ -1323,7 +1323,7 @@ if page=="Painel LaVuRS":
                 }
                 </style>
                 """,unsafe_allow_html=True)
-        col17,col18 = st.columns([1.5,1])
+        col17 = st.columns(1)
         container7 = st.container()
         with container7:
             with col17:
@@ -1335,7 +1335,15 @@ if page=="Painel LaVuRS":
                 df_filtrado_evento_tipologia_eventos_crosstab = pd.crosstab(index=df_filtrado_evento_tipologia_eventos['Evento'],columns='count').reset_index()
                 df_filtrado_evento_tipologia_merged = pd.merge(df_filtrado_evento_tipologia_eventos_crosstab, df_filtrado_evento_tipologia_Reportagens2, on='Evento', how='outer')
                 df_filtrado_evento_tipologia_merged_final = df_filtrado_evento_tipologia_merged.rename(columns={'count':'N° de Eventos', 'Quantidade_Reportagens':'N° de Reportagens'})
-        
+                df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia.drop_duplicates(['Data_Evento','Evento'])
+                df_filtrado_evento_tipologia_municipio_mais_atingido = df_filtrado_evento_tipologia_municipio_mais_atingido.drop_duplicates(['Data_Evento','Evento'])
+                contagem = df_filtrado_evento_tipologia_municipio_mais_atingido.groupby(['Evento', 'Municipio']).size().reset_index(name='contagem')
+                # Encontrar o município com o maior número de ocorrências para cada tipo de evento
+                municipio_mais_atingido = contagem.loc[contagem.groupby('evento')['contagem'].idxmax()]
+                # Renomear as colunas para maior clareza
+                municipio_mais_atingido = municipio_mais_atingido.rename(columns={'Municipio':'Município mais Atingido','contagem': 'Número de Ocorrências'})
+                
+                df_filtrado_evento_tipologia_merged_final2 = pd.merge(df_filtrado_evento_tipologia_merged_final, municipio_mais_atingido, on='Evento', how='inner')
                 tabela_tipologia = df_filtrado_evento_tipologia_merged_final.sort_values(by='N° de Eventos', ascending=False)
                 # Reiniciando o índice do DataFrame
                 tabela_tipologia = tabela_tipologia.reset_index(drop=True)
