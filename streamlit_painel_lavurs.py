@@ -1323,7 +1323,7 @@ if page=="Painel LaVuRS":
                 }
                 </style>
                 """,unsafe_allow_html=True)
-        col17 = st.columns(1)
+        col17 = st.columns([1])
         container7 = st.container()
         with container7:
             with col17:
