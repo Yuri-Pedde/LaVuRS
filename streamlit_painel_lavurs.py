@@ -241,7 +241,8 @@ if page=="Painel LaVuRS":
             #st.write(len(df_regioes_lavurs_inicio))
             df_regioes_lavurs_inicio_alto = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='ALTO SINOS']
             df_regioes_lavurs_inicio_baixo = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='BAIXO SINOS']
-            df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto,df_regioes_lavurs_inicio_baixo])
+            df_regioes_lavurs_inicio_medio = df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Regiao_BHRS']=='MEDIO SINOS']
+            df_regioes_lavurs_inicio = pd.concat([df_regioes_lavurs_inicio_alto,df_regioes_lavurs_inicio_baixo,df_regioes_lavurs_inicio_medio])
             if ano == "Todos os anos" and decada != "Todas as décadas":
                 regioes = sorted(df_regioes_lavurs_inicio[df_regioes_lavurs_inicio['Década'] == decada]['Regiao_BHRS'].unique())
             elif ano != "Todos os anos" and decada != "Todas as décadas":
@@ -696,7 +697,7 @@ if page=="Painel LaVuRS":
             df_heatmap_filtrado = df_heatmap_filtrado.drop_duplicates(['Data_Evento','Regiao_BHRS','Evento'])
             # Criar dummies para Região
             df_heatmap_filtrado['Regiao_BHRS'] = df_heatmap_filtrado['Regiao_BHRS'].apply(lambda x: x.replace(" E ", "; ") if " E " in x else x)
-            dummies_regiao = df_heatmap_filtrado['Regiao_BHRS'].str.get_dummies('; ').reindex(columns=['ALTO SINOS', 'BAIXO SINOS'], fill_value=0)
+            dummies_regiao = df_heatmap_filtrado['Regiao_BHRS'].str.get_dummies('; ').reindex(columns=['ALTO SINOS','MEDIO SINOS', 'BAIXO SINOS'], fill_value=0)
             
             # Criar dummies para Evento
             #eventos_unicos = df_original['Evento'].str.split('; ').explode().str.upper().unique()
@@ -706,26 +707,26 @@ if page=="Painel LaVuRS":
             df = pd.concat([df_heatmap_filtrado, dummies_regiao, dummies_eventos], axis=1)
     
             # Agrupar os dados por tipo de evento e somar para obter a contagem por região
-            heatmap_data = df.groupby('Evento')[['ALTO SINOS', 'BAIXO SINOS']].sum().reset_index()
+            heatmap_data = df.groupby('Evento')[['ALTO SINOS','MEDIO SINOS', 'BAIXO SINOS']].sum().reset_index()
     
             heatmap_data_expanded = heatmap_data.assign(Evento=heatmap_data['Evento'].str.split('; ')).explode('Evento')
             # Resetar o índice
             heatmap_data_expanded.reset_index(drop=True, inplace=True)
     
             # Agrupar os dados novamente e somar para obter a contagem por região
-            heatmap_data_final = heatmap_data_expanded.groupby(['Evento'])[['ALTO SINOS', 'BAIXO SINOS']].sum().reset_index()
+            heatmap_data_final = heatmap_data_expanded.groupby(['Evento'])[['ALTO SINOS', 'MEDIO SINOS', 'BAIXO SINOS',]].sum().reset_index()
     
             # Se necessário, você pode ordenar os eventos
             heatmap_data_final = heatmap_data_final.sort_values(by='Evento')
     
             total_alto_sinos = int(heatmap_data_final['ALTO SINOS'].sum())
             total_baixo_sinos = int(heatmap_data_final['BAIXO SINOS'].sum())
-            #total_outras_bacias = int(heatmap_data_final['OUTRAS BACIAS'].sum())
+            total_medio_sinos = int(heatmap_data_final['MEDIO SINOS'].sum())
     
             heatmap_data_final_setado = heatmap_data_final.set_index('Evento')
             lista_total_regioes = []
-            lista_total_regioes.append([total_alto_sinos,total_baixo_sinos])
-            heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'BAIXO SINOS'})])
+            lista_total_regioes.append([total_alto_sinos,total_baixo_sinos,total_medio_sinos])
+            heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'MEDIO SINOS',2:'BAIXO SINOS'})])
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
             
             fig, ax = plt.subplots(figsize=(13.1, 13.6))
@@ -941,8 +942,7 @@ if page=="Painel LaVuRS":
         """,
         unsafe_allow_html=True
         )
-    
-    
+        
         container4 = st.container()
         col11,col12 = st.columns([1,1.2])    
         with container4:
