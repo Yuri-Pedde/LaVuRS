@@ -1216,21 +1216,21 @@ if page=="Painel LaVuRS":
                 ax_meses =sns.barplot(data=contagem_por_mes, x="Mes", y="Nº de Eventos", color="#009000")
                 sns.despine()
                 # Personalizando os valores do eixo X
-                plt.xticks(fontsize=10, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
+                plt.xticks(fontsize=8, fontweight='bold')  # Define o tamanho e o peso da fonte dos rótulos do eixo X
             
                 plt.yticks([])
     
                 # Adicionando título e rótulos dos eixos
-                plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=20, fontstyle='italic', fontweight='bold', fontname='Arial')
-                plt.xlabel('Mês', fontsize=16)
-                plt.ylabel('Número de Eventos', fontsize=16)
+                plt.title('SÉRIE HISTÓRICA: NÚMERO DE EVENTOS POR MÊS', fontsize=18, fontstyle='italic', fontweight='bold', fontname='Arial')
+                plt.xlabel('Mês', fontsize=14)
+                plt.ylabel('Número de Eventos', fontsize=14)
                 for i, p in enumerate(ax_meses.patches):    
                     ax_meses.annotate(format(p.get_height(), '.0f'), 
                                 (p.get_x() + p.get_width() / 2., p.get_height()), 
                                 ha='center', va='center', 
                                 xytext=(0, 5), 
                                 textcoords='offset points',
-                                fontsize=12,
+                                fontsize=10,
                                 fontweight='bold',
                                 color='black')  # Cor do texto é preto
                                 
