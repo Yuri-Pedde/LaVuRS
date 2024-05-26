@@ -1350,7 +1350,7 @@ if page=="Painel LaVuRS":
             municipio_mais_atingido = pd.merge(municipio_mais_atingido, total_eventos_por_tipo, on='Evento', how='left')
             
             # Calcular a porcentagem de ocorrências para cada município mais atingido
-            municipio_mais_atingido['% de Ocorrência'] = (municipio_mais_atingido['contagem'] / municipio_mais_atingido['total_eventos']) * 100
+            municipio_mais_atingido['% de Ocorrência'] = (municipio_mais_atingido['contagem'] / municipio_mais_atingido['total_eventos'])
             
             # Criar um DataFrame final para armazenar as informações
             df_final_municipios_atingidos = pd.DataFrame(index=eventos, columns=['Municipio mais atingido Alto Sinos', '% de Ocorrência Alto Sinos',
