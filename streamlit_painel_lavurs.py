@@ -1280,7 +1280,7 @@ if page=="Painel LaVuRS":
                 autotext.set_backgroundcolor(color)
                 autotext.set_alpha(0.85)  # Definindo a opacidade
             # Adicionando título
-            plt.title("NÚMERO DE REPORTAGENS POR REGIÃO DA BHRS")
+            plt.title("PORCENTAGEM DE REPORTAGENS POR REGIÃO DA BHRS")
             
             # Exibindo o gráfico no Streamlit
             st.pyplot(fig_pizza)
