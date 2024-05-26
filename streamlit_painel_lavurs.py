@@ -742,7 +742,7 @@ if page=="Painel LaVuRS":
     
             heatmap_data_final_setado = heatmap_data_final.set_index('Evento')
             lista_total_regioes = []
-            lista_total_regioes.append([total_alto_sinos,total_baixo_sinos,total_medio_sinos])
+            lista_total_regioes.append([total_alto_sinos,total_medio_sinos,total_baixo_sinos])
             heatmap_data_final_setado = pd.concat([heatmap_data_final_setado,pd.DataFrame(lista_total_regioes).rename(columns={0:'ALTO SINOS',1:'MEDIO SINOS',2:'BAIXO SINOS'})])
             heatmap_data_final_setado = heatmap_data_final_setado.rename(index={0: 'TOTAL DE EVENTOS'})
             
